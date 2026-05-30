@@ -1,0 +1,21 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(curl -so /dev/null -w \"%{http_code}\" https://mcp.supabase.com/mcp)",
+      "mcp__plugin_supabase_supabase__list_organizations",
+      "mcp__plugin_supabase_supabase__list_projects",
+      "Read(//private/tmp/**)",
+      "Bash(rm -rf dating-app-temp)",
+      "Bash(npx create-expo-app@latest dating-app-temp --template default@sdk-56)",
+      "Bash(rsync -av --exclude='.git' --exclude='.claude' /tmp/dating-app-temp/ .)",
+      "Bash(cp -r src/app/. app/)",
+      "Bash(cp -r src/components/. components/)",
+      "Bash(cp -r src/hooks/. hooks/)",
+      "Bash(cp -r src/constants/. constants/)",
+      "Bash(npm install *)",
+      "Bash(node -e \"const c = require\\('eslint-config-expo'\\); console.log\\(typeof c, Object.keys\\(c\\).slice\\(0,5\\)\\)\")",
+      "Bash(node -e \"try { const c = require\\('eslint-config-expo/flat'\\); console.log\\('flat exists:', typeof c\\) } catch\\(e\\) { console.log\\('no flat:', e.message\\) }\")",
+      "Bash(npm run *)"
+    ]
+  }
+}
