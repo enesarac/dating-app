@@ -4,8 +4,7 @@ const appEnv =
   (Constants.expoConfig?.extra?.appEnv ?? process.env.EXPO_PUBLIC_APP_ENV) || 'development';
 
 const posthogKey = process.env.EXPO_PUBLIC_POSTHOG_KEY || '';
-const posthogHost =
-  process.env.EXPO_PUBLIC_POSTHOG_HOST || 'https://eu.i.posthog.com';
+const posthogHost = process.env.EXPO_PUBLIC_POSTHOG_HOST || 'https://eu.i.posthog.com';
 
 const isAnalyticsEnabled = appEnv !== 'development' && Boolean(posthogKey);
 

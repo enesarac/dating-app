@@ -15,7 +15,12 @@
       "Bash(npm install *)",
       "Bash(node -e \"const c = require\\('eslint-config-expo'\\); console.log\\(typeof c, Object.keys\\(c\\).slice\\(0,5\\)\\)\")",
       "Bash(node -e \"try { const c = require\\('eslint-config-expo/flat'\\); console.log\\('flat exists:', typeof c\\) } catch\\(e\\) { console.log\\('no flat:', e.message\\) }\")",
-      "Bash(npm run *)"
+      "Bash(npm run *)",
+      "Bash(npx expo *)",
+      "Bash(supabase --version)",
+      "Bash(supabase init *)",
+      "Bash(npm uninstall *)",
+      "Bash(npx expo-doctor *)"
     ]
   }
 }

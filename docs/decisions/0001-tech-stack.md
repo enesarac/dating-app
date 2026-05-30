@@ -26,9 +26,10 @@ Karar kriterleri: hız, type-safety, bakım kolaylığı, dating app'e özel UI 
 
 **Seçilen:** TanStack Query (server state) + Zustand (küçük client/UI state)  
 **Reddedilen:** Redux Toolkit, Jotai, MobX  
-**Gerekçe:**  
-- Sunucu verisini (profiller, eşleşmeler, mesajlar) cache, stale, refetch, optimistic update paradigmasıyla yönetmek için TanStack Query en olgun çözüm.  
-- Global UI state (modal açık/kapalı, onboarding adımı gibi) için Zustand minimal ve TypeScript dostu.  
+**Gerekçe:**
+
+- Sunucu verisini (profiller, eşleşmeler, mesajlar) cache, stale, refetch, optimistic update paradigmasıyla yönetmek için TanStack Query en olgun çözüm.
+- Global UI state (modal açık/kapalı, onboarding adımı gibi) için Zustand minimal ve TypeScript dostu.
 - Context API büyük uygulamalarda re-render baskısı oluşturur; ikili çözüm bu sorunu önler.
 
 ---
@@ -37,9 +38,10 @@ Karar kriterleri: hız, type-safety, bakım kolaylığı, dating app'e özel UI 
 
 **Seçilen:** React Hook Form + Zod + @hookform/resolvers  
 **Reddedilen:** Formik, Yup  
-**Gerekçe:**  
-- RHF performanslı (uncontrolled), Zod type inference ile TypeScript'e native.  
-- Validasyon şemaları server/client arasında paylaşılabilir.  
+**Gerekçe:**
+
+- RHF performanslı (uncontrolled), Zod type inference ile TypeScript'e native.
+- Validasyon şemaları server/client arasında paylaşılabilir.
 - Formik performans sorunları ve Yup tip desteği eksikliği nedeniyle elendi.
 
 ---
@@ -54,13 +56,13 @@ Karar kriterleri: hız, type-safety, bakım kolaylığı, dating app'e özel UI 
 
 ### UI Altyapı Kütüphaneleri
 
-| Kütüphane | Kullanım |
-|---|---|
-| `react-native-reanimated` | Swipe, match animasyonları, transition |
-| `react-native-gesture-handler` | Pan gesture, swipe card |
-| `@gorhom/bottom-sheet` | Match ekranı, filtreler, detay sayfaları |
-| `expo-image` | Profil fotoğrafı — performanslı cache/placeholder |
-| `lucide-react-native` | İkon seti (SVG, tree-shakeable) |
+| Kütüphane                      | Kullanım                                          |
+| ------------------------------ | ------------------------------------------------- |
+| `react-native-reanimated`      | Swipe, match animasyonları, transition            |
+| `react-native-gesture-handler` | Pan gesture, swipe card                           |
+| `@gorhom/bottom-sheet`         | Match ekranı, filtreler, detay sayfaları          |
+| `expo-image`                   | Profil fotoğrafı — performanslı cache/placeholder |
+| `lucide-react-native`          | İkon seti (SVG, tree-shakeable)                   |
 
 ---
 
@@ -99,21 +101,22 @@ Maestro mobile-first YAML tabanlı E2E aracı. React Native'de Detox'a göre dah
 
 ### Backend — Supabase (local-first CLI/migrations)
 
-**Kural:**  
-- Local development: `supabase start` → local Postgres + Auth + Storage + Edge Functions  
-- Remote: branch/merge migration akışı (`supabase db push`)  
-- Mobil client: sadece `EXPO_PUBLIC_SUPABASE_URL` ve `EXPO_PUBLIC_SUPABASE_PUBLISHABLE_KEY`  
+**Kural:**
+
+- Local development: `supabase start` → local Postgres + Auth + Storage + Edge Functions
+- Remote: branch/merge migration akışı (`supabase db push`)
+- Mobil client: sadece `EXPO_PUBLIC_SUPABASE_URL` ve `EXPO_PUBLIC_SUPABASE_PUBLISHABLE_KEY`
 - **Service role key asla client bundle'a girmez.**
 
 ---
 
 ## Sonradan Tekrar Değerlendirilecekler
 
-| Konu | Koşul |
-|---|---|
-| NativeWind / Tamagui pivot | Pair kararıyla küçük pilot sonrası (bkz. `0002-ui-system.md`) |
-| Maestro E2E kurulumu | Beta aşamasında, CI pipeline hazır olduğunda |
-| Sentry entegrasyonu | Beta / release branch açılmadan önce |
-| Expo Notifications token kaydı | Safety/notification fazı başlamadan önce |
-| Abonelik / ödeme altyapısı | Post-MVP, product-market fit sonrası |
-| Web uygulaması | Kapsam dışı — sonraki milestone'da değerlendirilecek |
+| Konu                           | Koşul                                                         |
+| ------------------------------ | ------------------------------------------------------------- |
+| NativeWind / Tamagui pivot     | Pair kararıyla küçük pilot sonrası (bkz. `0002-ui-system.md`) |
+| Maestro E2E kurulumu           | Beta aşamasında, CI pipeline hazır olduğunda                  |
+| Sentry entegrasyonu            | Beta / release branch açılmadan önce                          |
+| Expo Notifications token kaydı | Safety/notification fazı başlamadan önce                      |
+| Abonelik / ödeme altyapısı     | Post-MVP, product-market fit sonrası                          |
+| Web uygulaması                 | Kapsam dışı — sonraki milestone'da değerlendirilecek          |

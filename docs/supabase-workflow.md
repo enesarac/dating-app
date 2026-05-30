@@ -67,11 +67,11 @@ supabase db pull
 
 ## Branch Stratejisi
 
-| Branch | Supabase Ortamı | Env Dosyası |
-|---|---|---|
-| `main` | Production | `.env.production` (gizlenir) |
-| `develop` | Staging | `.env.staging` (gizlenir) |
-| `feature/*` | Local | `.env.local` (gizlenir) |
+| Branch      | Supabase Ortamı | Env Dosyası                  |
+| ----------- | --------------- | ---------------------------- |
+| `main`      | Production      | `.env.production` (gizlenir) |
+| `develop`   | Staging         | `.env.staging` (gizlenir)    |
+| `feature/*` | Local           | `.env.local` (gizlenir)      |
 
 ---
 

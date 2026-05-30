@@ -8,14 +8,7 @@ type Props = TextProps & {
   align?: 'left' | 'center' | 'right';
 };
 
-export function AppText({
-  variant = 'body',
-  color,
-  align,
-  style,
-  children,
-  ...rest
-}: Props) {
+export function AppText({ variant = 'body', color, align, style, children, ...rest }: Props) {
   return (
     <Text
       style={[

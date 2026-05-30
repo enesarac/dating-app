@@ -51,10 +51,7 @@ export function Avatar({ uri, initials, size = 'md', accessibilityLabel }: Props
   }
 
   return (
-    <View
-      style={[styles.placeholder, circleViewStyle]}
-      accessibilityLabel={accessibilityLabel}
-    >
+    <View style={[styles.placeholder, circleViewStyle]} accessibilityLabel={accessibilityLabel}>
       {initials ? (
         <AppText
           style={{

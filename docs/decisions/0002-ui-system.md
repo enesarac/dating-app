@@ -11,6 +11,7 @@ Dating app, standart bir iş uygulaması değil; duygusal yoğunluk, güven ve e
 Profil kartı üzerindeki swipe animasyonu, match anının konfeti patlaması, locked mode overlay'i, chat composer'ın klavye davranışı — bunlar framework'ten değil, ince gesture + animation kontrolünden ortaya çıkar.
 
 Custom StyleSheet yaklaşımı:
+
 - Render perf'i tahmin edilebilir (shadow DOM / style runtime yok).
 - Animasyonlar `react-native-reanimated` worklet'leriyle native thread'de çalışır; JS-driven bridge overhead yok.
 - Design token'lar TypeScript ile tam type-safe; refactor otomatik.
@@ -21,16 +22,19 @@ Custom StyleSheet yaklaşımı:
 ## Neden NativeWind / Tamagui / React Native Paper İlk Kurulumda Yok?
 
 ### NativeWind
+
 - Tailwind class'larının native StyleSheet'e derlenmesi SDK versiyon kırılganlığı yaratır.
 - Class-based API dating app kartları, animasyon state'leri ve gesture feedback için yeterince expressive değil.
 - Heroku bench: basit ekranlarda performans kazancı yokken karmaşık animasyon senaryolarında ek debug yükü.
 
 ### Tamagui
+
 - Güçlü compile-time optimizasyonu var; ancak SDK 56 / React 19 / Reanimated 4 stack'iyle uyumluluk henüz test edilmedi.
 - Kendi tema sistemi ve token mimarisine lock-in; dating app'in token'larını Tamagui'ye adapte etmek yerine kendi token'larımızı yazmak daha verimli.
 - Olgunlaşmakta olan ekosistem; beta değişiklikleri iterasyon hızını düşürebilir.
 
 ### React Native Paper (Material Design)
+
 - Material Design dili iOS 26 ve Android UI 8.5'in native hissiyatıyla çelişiyor.
 - Kart, avatar, chip, bottom sheet gibi primitive'leri zaten kendimiz yazıyoruz; ek bağımlılık gerekmez.
 
@@ -42,30 +46,30 @@ Custom StyleSheet yaklaşımı:
 
 `components/ui/` altında hazır olan iskelet:
 
-| Bileşen | Açıklama |
-|---|---|
-| `Screen` | SafeArea + KeyboardAvoidingView + scroll desteği |
-| `AppText` | Variant tabanlı typography (TextVariant sistemi) |
-| `Button` | primary / secondary / ghost / danger, loading state |
-| `IconButton` | Accessible icon action, hitSlop, variant |
-| `TextField` | label, error, hint, leftIcon, rightIcon, focus ring |
-| `Card` | shadow, padding, onPress (pressable variant) |
-| `Avatar` | expo-image, initials fallback, size sistemi |
-| `Badge` | brand / success / warning / error / info |
-| `EmptyState` | icon + title + description + CTA |
-| `LoadingState` | ActivityIndicator, fullScreen mod |
+| Bileşen        | Açıklama                                            |
+| -------------- | --------------------------------------------------- |
+| `Screen`       | SafeArea + KeyboardAvoidingView + scroll desteği    |
+| `AppText`      | Variant tabanlı typography (TextVariant sistemi)    |
+| `Button`       | primary / secondary / ghost / danger, loading state |
+| `IconButton`   | Accessible icon action, hitSlop, variant            |
+| `TextField`    | label, error, hint, leftIcon, rightIcon, focus ring |
+| `Card`         | shadow, padding, onPress (pressable variant)        |
+| `Avatar`       | expo-image, initials fallback, size sistemi         |
+| `Badge`        | brand / success / warning / error / info            |
+| `EmptyState`   | icon + title + description + CTA                    |
+| `LoadingState` | ActivityIndicator, fullScreen mod                   |
 
 ---
 
 ## Hangi UI Altyapı Paketleri Kullanılacak?
 
-| Paket | Ne İçin |
-|---|---|
-| `react-native-reanimated` | Swipe card animasyonu, match konfeti, modal/sheet transitions |
-| `react-native-gesture-handler` | Pan gesture, swipe to like/pass, pull-to-refresh |
-| `@gorhom/bottom-sheet` | Match ekranı, filtre sheet, profil detay |
-| `expo-image` | Profil fotoğrafı; blurhash placeholder, cache, fade-in |
-| `lucide-react-native` | SVG ikon seti, her ikon bağımsız import (tree-shaking) |
+| Paket                          | Ne İçin                                                       |
+| ------------------------------ | ------------------------------------------------------------- |
+| `react-native-reanimated`      | Swipe card animasyonu, match konfeti, modal/sheet transitions |
+| `react-native-gesture-handler` | Pan gesture, swipe to like/pass, pull-to-refresh              |
+| `@gorhom/bottom-sheet`         | Match ekranı, filtre sheet, profil detay                      |
+| `expo-image`                   | Profil fotoğrafı; blurhash placeholder, cache, fade-in        |
+| `lucide-react-native`          | SVG ikon seti, her ikon bağımsız import (tree-shaking)        |
 
 ---
 
@@ -73,16 +77,16 @@ Custom StyleSheet yaklaşımı:
 
 Aşağıdaki UI senaryolar "premium MVP" olarak tanımlandı; her biri özel tasarım gerektirir:
 
-| Senaryo | Açıklama |
-|---|---|
-| **Profil Kartı** | Fotoğraf stack, blur/gradient overlay, isim/yaş/mesafe bilgisi, swipe gesture ile like/pass |
-| **Match Animasyonu** | Konfeti veya particle, modal overlay, CTA (mesaj gönder / sonra) |
-| **Locked Mode** | Aktif eşleşme varken keşfet ekranı blur/lock overlay; diğer profillere erişim engeli |
-| **Chat Composer** | Keyboard-aware input, send button, emoji desteği, character limit göstergesi |
-| **Bottom Sheet** | @gorhom/bottom-sheet — snap points, backdrop, handle, scroll içerik |
-| **Modal** | Expo Router modal pattern veya custom modal overlay (confirm, alert, image viewer) |
-| **Empty State** | Her liste/ekranda (no matches, no messages, no likes) illüstrasyonlu boş durum |
-| **Error State** | Network hata, retry CTA, kullanıcı dostu mesaj |
+| Senaryo              | Açıklama                                                                                    |
+| -------------------- | ------------------------------------------------------------------------------------------- |
+| **Profil Kartı**     | Fotoğraf stack, blur/gradient overlay, isim/yaş/mesafe bilgisi, swipe gesture ile like/pass |
+| **Match Animasyonu** | Konfeti veya particle, modal overlay, CTA (mesaj gönder / sonra)                            |
+| **Locked Mode**      | Aktif eşleşme varken keşfet ekranı blur/lock overlay; diğer profillere erişim engeli        |
+| **Chat Composer**    | Keyboard-aware input, send button, emoji desteği, character limit göstergesi                |
+| **Bottom Sheet**     | @gorhom/bottom-sheet — snap points, backdrop, handle, scroll içerik                         |
+| **Modal**            | Expo Router modal pattern veya custom modal overlay (confirm, alert, image viewer)          |
+| **Empty State**      | Her liste/ekranda (no matches, no messages, no likes) illüstrasyonlu boş durum              |
+| **Error State**      | Network hata, retry CTA, kullanıcı dostu mesaj                                              |
 
 ---
 

@@ -6,7 +6,7 @@ import {
   View,
   type ViewStyle,
 } from 'react-native';
-import { colors, layout, radius, shadows, spacing } from '@/theme';
+import { colors, layout, radius, shadows, spacing, type RadiusToken } from '@/theme';
 
 type Props = {
   children: React.ReactNode;
@@ -15,6 +15,8 @@ type Props = {
   accessibilityLabel?: string;
   shadow?: boolean;
   padding?: number;
+  /** Override corner radius. Default is 'lg' (16). Profile cards use 'xl' or '2xl'. */
+  borderRadius?: RadiusToken;
 };
 
 export function Card({
@@ -24,11 +26,12 @@ export function Card({
   accessibilityLabel,
   shadow = true,
   padding = layout.cardPadding,
+  borderRadius: borderRadiusToken = 'lg',
 }: Props) {
   const containerStyle = [
     styles.card,
     shadow ? shadows.card : undefined,
-    { padding },
+    { padding, borderRadius: radius[borderRadiusToken] },
     style,
   ];
 
@@ -53,7 +56,6 @@ export function Card({
 const styles = StyleSheet.create({
   card: {
     backgroundColor: colors.bgElevated,
-    borderRadius: radius.xl,
     borderWidth: 1,
     borderColor: colors.borderDefault,
     gap: spacing[3],

@@ -53,11 +53,7 @@ export function Screen({
   );
 
   return (
-    <SafeAreaView
-      style={[styles.container, style]}
-      edges={edges}
-      testID={testID}
-    >
+    <SafeAreaView style={[styles.container, style]} edges={edges} testID={testID}>
       {content}
     </SafeAreaView>
   );

@@ -1,11 +1,5 @@
 import React, { forwardRef, useState } from 'react';
-import {
-  StyleSheet,
-  TextInput,
-  type TextInputProps,
-  View,
-  type ViewStyle,
-} from 'react-native';
+import { StyleSheet, TextInput, type TextInputProps, View, type ViewStyle } from 'react-native';
 import { colors, radius, spacing, typography } from '@/theme';
 import { AppText } from './AppText';
 
@@ -33,13 +27,7 @@ export const TextField = forwardRef<TextInput, Props>(function TextField(
         </AppText>
       ) : null}
 
-      <View
-        style={[
-          styles.inputRow,
-          focused && styles.focused,
-          hasError && styles.errorBorder,
-        ]}
-      >
+      <View style={[styles.inputRow, focused && styles.focused, hasError && styles.errorBorder]}>
         {leftIcon ? <View style={styles.iconLeft}>{leftIcon}</View> : null}
         <TextInput
           ref={ref}

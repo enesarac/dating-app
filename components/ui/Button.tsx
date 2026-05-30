@@ -46,9 +46,21 @@ const variantStyles: Record<Variant, { container: ViewStyle; textColor: string }
 };
 
 const sizeStyles: Record<Size, { container: ViewStyle; fontSize: number; paddingV: number }> = {
-  sm: { container: { paddingVertical: spacing[1.5], paddingHorizontal: spacing[3] }, fontSize: 13, paddingV: spacing[1.5] },
-  md: { container: { paddingVertical: spacing[3], paddingHorizontal: spacing[5] }, fontSize: 15, paddingV: spacing[3] },
-  lg: { container: { paddingVertical: spacing[4], paddingHorizontal: spacing[6] }, fontSize: 17, paddingV: spacing[4] },
+  sm: {
+    container: { paddingVertical: spacing[1.5], paddingHorizontal: spacing[3] },
+    fontSize: 13,
+    paddingV: spacing[1.5],
+  },
+  md: {
+    container: { paddingVertical: spacing[3], paddingHorizontal: spacing[5] },
+    fontSize: 15,
+    paddingV: spacing[3],
+  },
+  lg: {
+    container: { paddingVertical: spacing[4], paddingHorizontal: spacing[6] },
+    fontSize: 17,
+    paddingV: spacing[4],
+  },
 };
 
 export function Button({
@@ -91,7 +103,11 @@ export function Button({
         <>
           {leftIcon}
           <AppText
-            style={{ color: vs.textColor, fontSize: ss.fontSize, fontWeight: typography.weight.semibold }}
+            style={{
+              color: vs.textColor,
+              fontSize: ss.fontSize,
+              fontWeight: typography.weight.semibold,
+            }}
           >
             {label}
           </AppText>

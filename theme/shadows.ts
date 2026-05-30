@@ -8,12 +8,7 @@ type Shadow = {
   elevation: number;
 };
 
-function makeShadow(
-  height: number,
-  radius: number,
-  opacity: number,
-  elevation: number,
-): Shadow {
+function makeShadow(height: number, radius: number, opacity: number, elevation: number): Shadow {
   return Platform.select({
     ios: {
       shadowColor: '#000',
