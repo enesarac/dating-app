@@ -908,8 +908,8 @@ Ortak tablo, RLS veya RPC degisikligi baska feature'i etkiliyorsa degisiklik `Pa
 ### 21.2 Asama 2: Ortak Supabase Veri Modeli ve Guvenlik Temeli
 
 - `[done] 2.1` Ortak database sema taslagini kesinlestir. Sahip: Pair. Cikti: feature sahipleri hangi tabloya dokunacagini bilir.
-- `[active] 2.2` `profiles`, `profile_photos`, `profile_prompts`, `preferences` tablolarini olustur. Sahip: Auth/Profile feature sahibi. Cikti: Auth/Profile feature'lari icin temel sema.
-- `[todo] 2.3` `likes`, `matches`, `match_participants`, `messages` tablolarini olustur. Sahip: Discover/Match/Chat feature sahibi. Cikti: Discover/Match/Chat feature'lari icin temel sema.
+- `[done] 2.2` `profiles`, `profile_photos`, `profile_prompts`, `preferences` tablolarini olustur. Sahip: Auth/Profile feature sahibi. Cikti: Auth/Profile feature'lari icin temel sema.
+- `[active] 2.3` `likes`, `matches`, `match_participants`, `messages` tablolarini olustur. Sahip: Discover/Match/Chat feature sahibi. Cikti: Discover/Match/Chat feature'lari icin temel sema.
 - `[todo] 2.4` `blocks`, `reports`, `devices`, `app_config` tablolarini olustur. Sahip: Safety/Notification feature sahibi. Cikti: safety, notification ve app ayarlari icin sema.
 - `[todo] 2.5` Kritik index ve constraintleri ekle. Sahip: Pair. Cikti: kullanici basina tek aktif match DB seviyesinde korunur.
 - `[todo] 2.6` Ilk RLS politikalarini yaz. Sahip: Pair. Cikti: kullanici sadece yetkili oldugu verileri okuyup yazabilir.
