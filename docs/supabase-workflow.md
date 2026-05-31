@@ -7,6 +7,23 @@ Service role key **asla** client bundle'a girmez.
 
 ---
 
+## Local Test Kullanıcıları
+
+`supabase db reset` sonrası `supabase/seed.sql` ile oluşturulur. **Sadece local.**
+
+| Display Name | Email              | Şifre       | Durum                        |
+| ------------ | ------------------ | ----------- | ---------------------------- |
+| Alice        | `alice@test.local` | `Test1234!` | active · female · likes male |
+| Bob          | `bob@test.local`   | `Test1234!` | active · male · likes female |
+| Carol        | `carol@test.local` | `Test1234!` | active · female · likes both |
+| Dan          | `dan@test.local`   | `Test1234!` | active · male · likes male   |
+| Eve          | `eve@test.local`   | `Test1234!` | onboarding (eksik profil)    |
+| Frank        | `frank@test.local` | `Test1234!` | locked                       |
+
+**Hazır veri:** Alice × Bob arasında aktif match + 3 mesaj. Carol → Bob ve Dan → Carol tek yönlü like.
+
+---
+
 ## Local Development
 
 ```bash
@@ -97,6 +114,20 @@ npm run supabase:types:remote
 ```
 
 `types/database.ts` dosyası commit edilir; el ile düzenlenmez.
+
+### Typed client kullanım örneği
+
+```ts
+// Tek import noktası: lib/supabase
+import { supabase } from '@/lib/supabase';
+import type { ProfileRow, MessageRow } from '@/lib/supabase';
+
+// Typed sorgu — dönüş tipi otomatik ProfileRow[]
+const { data } = await supabase.from('profiles').select('*');
+
+// Row tipi alias olarak
+function render(msg: MessageRow) { ... }
+```
 
 ---
 

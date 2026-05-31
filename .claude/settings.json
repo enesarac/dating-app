@@ -26,7 +26,13 @@
       "Bash(supabase migration *)",
       "Bash(docker info *)",
       "mcp__plugin_supabase_supabase__apply_migration",
-      "mcp__plugin_supabase_supabase__generate_typescript_types"
+      "mcp__plugin_supabase_supabase__generate_typescript_types",
+      "Bash(supabase start *)",
+      "Bash(supabase stop *)",
+      "Bash(psql postgresql://postgres:postgres@127.0.0.1:54322/postgres -c \"\\\\d auth.identities\")",
+      "Bash(psql postgresql://postgres:postgres@127.0.0.1:54322/postgres -c \"\\\\d auth.users\")",
+      "Bash(psql postgresql://postgres:postgres@127.0.0.1:54322/postgres -c ' *)",
+      "WebFetch(domain:docs.expo.dev)"
     ]
   }
 }

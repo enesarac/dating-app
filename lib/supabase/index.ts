@@ -1,1 +1,22 @@
 export { supabase } from './client';
+export type {
+  Database,
+  Tables,
+  TablesInsert,
+  TablesUpdate,
+  ProfileRow,
+  ProfileInsert,
+  ProfileUpdate,
+  ProfilePhotoRow,
+  ProfilePromptRow,
+  PreferencesRow,
+  LikeRow,
+  MatchRow,
+  MatchParticipantRow,
+  MessageRow,
+  MessageInsert,
+  BlockRow,
+  ReportRow,
+  DeviceRow,
+  AppConfigRow,
+} from './types';

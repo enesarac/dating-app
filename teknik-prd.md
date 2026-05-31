@@ -909,19 +909,19 @@ Ortak tablo, RLS veya RPC degisikligi baska feature'i etkiliyorsa degisiklik `Pa
 
 - `[done] 2.1` Ortak database sema taslagini kesinlestir. Sahip: Pair. Cikti: feature sahipleri hangi tabloya dokunacagini bilir.
 - `[done] 2.2` `profiles`, `profile_photos`, `profile_prompts`, `preferences` tablolarini olustur. Sahip: Auth/Profile feature sahibi. Cikti: Auth/Profile feature'lari icin temel sema.
-- `[active] 2.3` `likes`, `matches`, `match_participants`, `messages` tablolarini olustur. Sahip: Discover/Match/Chat feature sahibi. Cikti: Discover/Match/Chat feature'lari icin temel sema.
-- `[todo] 2.4` `blocks`, `reports`, `devices`, `app_config` tablolarini olustur. Sahip: Safety/Notification feature sahibi. Cikti: safety, notification ve app ayarlari icin sema.
-- `[todo] 2.5` Kritik index ve constraintleri ekle. Sahip: Pair. Cikti: kullanici basina tek aktif match DB seviyesinde korunur.
-- `[todo] 2.6` Ilk RLS politikalarini yaz. Sahip: Pair. Cikti: kullanici sadece yetkili oldugu verileri okuyup yazabilir.
-- `[todo] 2.7` Storage bucket ve foto erisim politikasini kur. Sahip: Auth/Profile feature sahibi. Cikti: profil fotografi upload altyapisi.
-- `[todo] 2.8` Seed/test kullanicilari hazirla. Sahip: Discover/Match feature sahibi. Cikti: gelistirme sirasinda kesfet ve match test edilebilir.
-- `[todo] 2.9` Supabase TypeScript tiplerini uret ve client'a bagla. Sahip: Pair. Cikti: tum feature'larda tipli DB erisimi.
+- `[done] 2.3` `likes`, `matches`, `match_participants`, `messages` tablolarini olustur. Sahip: Discover/Match/Chat feature sahibi. Cikti: Discover/Match/Chat feature'lari icin temel sema.
+- `[done] 2.4` `blocks`, `reports`, `devices`, `app_config` tablolarini olustur. Sahip: Safety/Notification feature sahibi. Cikti: safety, notification ve app ayarlari icin sema.
+- `[done] 2.5` Kritik index ve constraintleri ekle. Sahip: Pair. Cikti: kullanici basina tek aktif match DB seviyesinde korunur.
+- `[done] 2.6` Ilk RLS politikalarini yaz. Sahip: Pair. Cikti: kullanici sadece yetkili oldugu verileri okuyup yazabilir.
+- `[done] 2.7` Storage bucket ve foto erisim politikasini kur. Sahip: Auth/Profile feature sahibi. Cikti: profil fotografi upload altyapisi.
+- `[done] 2.8` Seed/test kullanicilari hazirla. Sahip: Discover/Match feature sahibi. Cikti: gelistirme sirasinda kesfet ve match test edilebilir.
+- `[done] 2.9` Supabase TypeScript tiplerini uret ve client'a bagla. Sahip: Pair. Cikti: tum feature'larda tipli DB erisimi.
 
 ### 21.3 Asama 3: Feature Slice - Auth ve Onboarding
 
 Sahip: `Feature sahibi`
 
-- `[todo] 3.1` Auth feature prompt/notunu hazirla. Cikti: ekranlar, Supabase ihtiyaclari, kabul kriterleri ve testler netlesir.
+- `[active] 3.1` Auth feature prompt/notunu hazirla. Cikti: ekranlar, Supabase ihtiyaclari, kabul kriterleri ve testler netlesir.
 - `[todo] 3.2` Splash ve session kontrol akisini kur. Cikti: kullanici durumuna gore dogru ekrana yonlendirme.
 - `[todo] 3.3` Giris/kayit ekranlarini yap. Cikti: Supabase Auth ile calisan temel auth.
 - `[todo] 3.4` Onboarding temel bilgi ekranlarini yap. Cikti: ad, dogum tarihi, cinsiyet ve niyet bilgileri alinabilir.
@@ -1097,9 +1097,9 @@ Bu uygulamanin teknik kalbi, React Native Expo arayuzunden cok Supabase tarafind
 
 Ilk implementasyon sirasinda oncelik su sirada olmalidir:
 
-1. `[active]` Veri modeli ve RLS.
+1. `[done]` Veri modeli ve RLS.
 2. `[todo]` Match olusturma/bitirme transactionlari.
-3. `[todo]` Mobil auth/onboarding/profil akisi.
+3. `[active]` Mobil auth/onboarding/profil akisi.
 4. `[todo]` Kesfet feed ve like/pass.
 5. `[todo]` Kilitli mod ve chat.
 6. `[todo]` Timeout job ve bildirimler.

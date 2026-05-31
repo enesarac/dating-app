@@ -31,30 +31,30 @@ sırasını belirler.
 
 ### Auth / Profile
 
-| Tablo | Açıklama |
-| --- | --- |
-| `profiles` | `auth.users` ile 1:1; display_name, bio, doğum tarihi, cinsiyet, konum, availability_state |
-| `profile_photos` | Profil fotoğrafları; sıra, is_primary, storage path, moderation_status |
-| `profile_prompts` | Kullanıcının seçtiği soru-cevap prompt'ları (biyografi zenginleştirme) |
-| `preferences` | Keşfet filtre tercihleri; cinsiyet, yaş aralığı, mesafe |
+| Tablo             | Açıklama                                                                                   |
+| ----------------- | ------------------------------------------------------------------------------------------ |
+| `profiles`        | `auth.users` ile 1:1; display_name, bio, doğum tarihi, cinsiyet, konum, availability_state |
+| `profile_photos`  | Profil fotoğrafları; sıra, is_primary, storage path, moderation_status                     |
+| `profile_prompts` | Kullanıcının seçtiği soru-cevap prompt'ları (biyografi zenginleştirme)                     |
+| `preferences`     | Keşfet filtre tercihleri; cinsiyet, yaş aralığı, mesafe                                    |
 
 ### Discover / Match / Chat
 
-| Tablo | Açıklama |
-| --- | --- |
-| `likes` | Kullanıcıdan kullanıcıya beğeni; action: like / pass |
-| `matches` | Karşılıklı beğeniyle oluşan eşleşme; status, ended_reason |
+| Tablo                | Açıklama                                                                        |
+| -------------------- | ------------------------------------------------------------------------------- |
+| `likes`              | Kullanıcıdan kullanıcıya beğeni; action: like / pass                            |
+| `matches`            | Karşılıklı beğeniyle oluşan eşleşme; status, ended_reason                       |
 | `match_participants` | Eşleşmeye taraf olan kullanıcılar — tek aktif match kısıtının uygulandığı tablo |
-| `messages` | Mesajlar; message_type: text / image / system |
+| `messages`           | Mesajlar; message_type: text / image / system                                   |
 
 ### Safety / Notification / Config
 
-| Tablo | Açıklama |
-| --- | --- |
-| `blocks` | Engelleme kayıtları |
-| `reports` | Kullanıcı şikayetleri; status |
-| `devices` | Push token'ları ve platform bilgisi (Expo Notifications, sonraki faz) |
-| `app_config` | Remote feature flag ve uygulama geneli config (admin paneli olmadan) |
+| Tablo        | Açıklama                                                              |
+| ------------ | --------------------------------------------------------------------- |
+| `blocks`     | Engelleme kayıtları                                                   |
+| `reports`    | Kullanıcı şikayetleri; status                                         |
+| `devices`    | Push token'ları ve platform bilgisi (Expo Notifications, sonraki faz) |
+| `app_config` | Remote feature flag ve uygulama geneli config (admin paneli olmadan)  |
 
 **Sonraya bırakılanlar:** `interests`, `profile_interests` (ilgi alanı kataloğu ihtiyacı netleşince
 eklenecek), `message_reads` (okundu bilgisi chat fazında değerlendirilecek), `notification_tokens`
@@ -67,15 +67,15 @@ eklenecek), `message_reads` (okundu bilgisi chat fazında değerlendirilecek), `
 Tüm durum alanları Postgres `TEXT` + `CHECK` constraint ile tanımlanacak; ileride `ENUM`'a
 dönüştürmeye olanak tanır.
 
-| Alan | Değerler |
-| --- | --- |
-| `profiles.availability_state` | `onboarding` · `active` · `locked` · `paused` · `banned` · `deleted` |
-| `likes.action` | `like` · `pass` |
-| `matches.status` | `active` · `ended` · `expired` · `blocked` · `reported` |
-| `matches.ended_reason` | `manual` · `timeout` · `blocked` · `moderation` — aktif match sırasında `NULL` kalır |
-| `messages.message_type` | `text` · `image` · `system` |
-| `profile_photos.moderation_status` | `pending` · `approved` · `rejected` |
-| `reports.status` | `open` · `reviewing` · `resolved` · `dismissed` |
+| Alan                               | Değerler                                                                             |
+| ---------------------------------- | ------------------------------------------------------------------------------------ |
+| `profiles.availability_state`      | `onboarding` · `active` · `locked` · `paused` · `banned` · `deleted`                 |
+| `likes.action`                     | `like` · `pass`                                                                      |
+| `matches.status`                   | `active` · `ended` · `expired` · `blocked` · `reported`                              |
+| `matches.ended_reason`             | `manual` · `timeout` · `blocked` · `moderation` — aktif match sırasında `NULL` kalır |
+| `messages.message_type`            | `text` · `image` · `system`                                                          |
+| `profile_photos.moderation_status` | `pending` · `approved` · `rejected`                                                  |
+| `reports.status`                   | `open` · `reviewing` · `resolved` · `dismissed`                                      |
 
 ---
 
@@ -86,25 +86,25 @@ Bu bölüm 2.2–2.4 migration'larının kaynak sözleşmesidir. Constraint ve R
 
 ### `profiles`
 
-| Alan | Tip | Nullable? | Not |
-| --- | --- | --- | --- |
-| `id` | `uuid` | ✗ | PK · `references auth.users(id)` |
-| `display_name` | `text` | ✗ | |
-| `birth_date` | `date` | ✗ | |
-| `gender` | `text` | ✗ | |
-| `interested_in` | `text[]` | ✗ | |
-| `bio` | `text` | ✓ | |
-| `latitude` | `double precision` | ✓ | |
-| `longitude` | `double precision` | ✓ | |
-| `city` | `text` | ✓ | |
-| `country` | `text` | ✓ | |
-| `availability_state` | `text` | ✗ | default `'onboarding'` |
-| `is_locked` | `boolean` | ✗ | default `false` |
-| `is_visible` | `boolean` | ✗ | default `false` |
-| `profile_completed_at` | `timestamptz` | ✓ | |
-| `last_active_at` | `timestamptz` | ✓ | |
-| `created_at` | `timestamptz` | ✗ | default `now()` |
-| `updated_at` | `timestamptz` | ✗ | default `now()` |
+| Alan                   | Tip                | Nullable? | Not                              |
+| ---------------------- | ------------------ | --------- | -------------------------------- |
+| `id`                   | `uuid`             | ✗         | PK · `references auth.users(id)` |
+| `display_name`         | `text`             | ✗         |                                  |
+| `birth_date`           | `date`             | ✗         |                                  |
+| `gender`               | `text`             | ✗         |                                  |
+| `interested_in`        | `text[]`           | ✗         |                                  |
+| `bio`                  | `text`             | ✓         |                                  |
+| `latitude`             | `double precision` | ✓         |                                  |
+| `longitude`            | `double precision` | ✓         |                                  |
+| `city`                 | `text`             | ✓         |                                  |
+| `country`              | `text`             | ✓         |                                  |
+| `availability_state`   | `text`             | ✗         | default `'onboarding'`           |
+| `is_locked`            | `boolean`          | ✗         | default `false`                  |
+| `is_visible`           | `boolean`          | ✗         | default `false`                  |
+| `profile_completed_at` | `timestamptz`      | ✓         |                                  |
+| `last_active_at`       | `timestamptz`      | ✓         |                                  |
+| `created_at`           | `timestamptz`      | ✗         | default `now()`                  |
+| `updated_at`           | `timestamptz`      | ✗         | default `now()`                  |
 
 > `availability_state` ana kaynak; `is_locked` ve `is_visible` geriye dönük okunabilirlik ve
 > query kolaylığı için senkron tutulur.
@@ -113,55 +113,55 @@ Bu bölüm 2.2–2.4 migration'larının kaynak sözleşmesidir. Constraint ve R
 
 ### `profile_photos`
 
-| Alan | Tip | Nullable? | Not |
-| --- | --- | --- | --- |
-| `id` | `uuid` | ✗ | PK |
-| `user_id` | `uuid` | ✗ | `references profiles(id)` |
-| `storage_path` | `text` | ✗ | |
-| `sort_order` | `int` | ✗ | |
-| `is_primary` | `boolean` | ✗ | default `false` |
-| `moderation_status` | `text` | ✗ | default `'pending'` |
-| `created_at` | `timestamptz` | ✗ | default `now()` |
+| Alan                | Tip           | Nullable? | Not                       |
+| ------------------- | ------------- | --------- | ------------------------- |
+| `id`                | `uuid`        | ✗         | PK                        |
+| `user_id`           | `uuid`        | ✗         | `references profiles(id)` |
+| `storage_path`      | `text`        | ✗         |                           |
+| `sort_order`        | `int`         | ✗         |                           |
+| `is_primary`        | `boolean`     | ✗         | default `false`           |
+| `moderation_status` | `text`        | ✗         | default `'pending'`       |
+| `created_at`        | `timestamptz` | ✗         | default `now()`           |
 
 ---
 
 ### `profile_prompts`
 
-| Alan | Tip | Nullable? | Not |
-| --- | --- | --- | --- |
-| `id` | `uuid` | ✗ | PK |
-| `user_id` | `uuid` | ✗ | `references profiles(id)` |
-| `prompt_key` | `text` | ✗ | |
-| `answer` | `text` | ✗ | |
-| `created_at` | `timestamptz` | ✗ | default `now()` |
-| `updated_at` | `timestamptz` | ✗ | default `now()` |
+| Alan         | Tip           | Nullable? | Not                       |
+| ------------ | ------------- | --------- | ------------------------- |
+| `id`         | `uuid`        | ✗         | PK                        |
+| `user_id`    | `uuid`        | ✗         | `references profiles(id)` |
+| `prompt_key` | `text`        | ✗         |                           |
+| `answer`     | `text`        | ✗         |                           |
+| `created_at` | `timestamptz` | ✗         | default `now()`           |
+| `updated_at` | `timestamptz` | ✗         | default `now()`           |
 
 ---
 
 ### `preferences`
 
-| Alan | Tip | Nullable? | Not |
-| --- | --- | --- | --- |
-| `user_id` | `uuid` | ✗ | PK · `references profiles(id)` |
-| `min_age` | `int` | ✓ | |
-| `max_age` | `int` | ✓ | |
-| `max_distance_km` | `int` | ✓ | |
-| `interested_genders` | `text[]` | ✓ | |
-| `relationship_goals` | `text[]` | ✓ | |
-| `created_at` | `timestamptz` | ✗ | default `now()` |
-| `updated_at` | `timestamptz` | ✗ | default `now()` |
+| Alan                 | Tip           | Nullable? | Not                            |
+| -------------------- | ------------- | --------- | ------------------------------ |
+| `user_id`            | `uuid`        | ✗         | PK · `references profiles(id)` |
+| `min_age`            | `int`         | ✓         |                                |
+| `max_age`            | `int`         | ✓         |                                |
+| `max_distance_km`    | `int`         | ✓         |                                |
+| `interested_genders` | `text[]`      | ✓         |                                |
+| `relationship_goals` | `text[]`      | ✓         |                                |
+| `created_at`         | `timestamptz` | ✗         | default `now()`                |
+| `updated_at`         | `timestamptz` | ✗         | default `now()`                |
 
 ---
 
 ### `likes`
 
-| Alan | Tip | Nullable? | Not |
-| --- | --- | --- | --- |
-| `id` | `uuid` | ✗ | PK |
-| `from_user_id` | `uuid` | ✗ | `references profiles(id)` |
-| `to_user_id` | `uuid` | ✗ | `references profiles(id)` |
-| `action` | `text` | ✗ | |
-| `created_at` | `timestamptz` | ✗ | default `now()` |
+| Alan           | Tip           | Nullable? | Not                       |
+| -------------- | ------------- | --------- | ------------------------- |
+| `id`           | `uuid`        | ✗         | PK                        |
+| `from_user_id` | `uuid`        | ✗         | `references profiles(id)` |
+| `to_user_id`   | `uuid`        | ✗         | `references profiles(id)` |
+| `action`       | `text`        | ✗         |                           |
+| `created_at`   | `timestamptz` | ✗         | default `now()`           |
 
 > `unique(from_user_id, to_user_id)` · `check(from_user_id <> to_user_id)`
 
@@ -169,19 +169,19 @@ Bu bölüm 2.2–2.4 migration'larının kaynak sözleşmesidir. Constraint ve R
 
 ### `matches`
 
-| Alan | Tip | Nullable? | Not |
-| --- | --- | --- | --- |
-| `id` | `uuid` | ✗ | PK |
-| `user_a_id` | `uuid` | ✗ | `references profiles(id)` |
-| `user_b_id` | `uuid` | ✗ | `references profiles(id)` |
-| `status` | `text` | ✗ | default `'active'` |
-| `matched_at` | `timestamptz` | ✗ | default `now()` |
-| `last_interaction_at` | `timestamptz` | ✗ | default `now()` |
-| `ended_at` | `timestamptz` | ✓ | |
-| `ended_by_user_id` | `uuid` | ✓ | `references profiles(id)` |
-| `ended_reason` | `text` | ✓ | |
-| `created_at` | `timestamptz` | ✗ | default `now()` |
-| `updated_at` | `timestamptz` | ✗ | default `now()` |
+| Alan                  | Tip           | Nullable? | Not                       |
+| --------------------- | ------------- | --------- | ------------------------- |
+| `id`                  | `uuid`        | ✗         | PK                        |
+| `user_a_id`           | `uuid`        | ✗         | `references profiles(id)` |
+| `user_b_id`           | `uuid`        | ✗         | `references profiles(id)` |
+| `status`              | `text`        | ✗         | default `'active'`        |
+| `matched_at`          | `timestamptz` | ✗         | default `now()`           |
+| `last_interaction_at` | `timestamptz` | ✗         | default `now()`           |
+| `ended_at`            | `timestamptz` | ✓         |                           |
+| `ended_by_user_id`    | `uuid`        | ✓         | `references profiles(id)` |
+| `ended_reason`        | `text`        | ✓         |                           |
+| `created_at`          | `timestamptz` | ✗         | default `now()`           |
+| `updated_at`          | `timestamptz` | ✗         | default `now()`           |
 
 > `check(user_a_id <> user_b_id)` · Aktif match tekilliği doğrudan bu tabloda değil,
 > `match_participants` üzerinden enforce edilir.
@@ -190,12 +190,12 @@ Bu bölüm 2.2–2.4 migration'larının kaynak sözleşmesidir. Constraint ve R
 
 ### `match_participants`
 
-| Alan | Tip | Nullable? | Not |
-| --- | --- | --- | --- |
-| `match_id` | `uuid` | ✗ | `references matches(id)` |
-| `user_id` | `uuid` | ✗ | `references profiles(id)` |
-| `status` | `text` | ✗ | default `'active'` |
-| `created_at` | `timestamptz` | ✗ | default `now()` |
+| Alan         | Tip           | Nullable? | Not                       |
+| ------------ | ------------- | --------- | ------------------------- |
+| `match_id`   | `uuid`        | ✗         | `references matches(id)`  |
+| `user_id`    | `uuid`        | ✗         | `references profiles(id)` |
+| `status`     | `text`        | ✗         | default `'active'`        |
+| `created_at` | `timestamptz` | ✗         | default `now()`           |
 
 > PK `(match_id, user_id)` · Partial unique index: `unique(user_id) where status = 'active'`
 
@@ -203,27 +203,27 @@ Bu bölüm 2.2–2.4 migration'larının kaynak sözleşmesidir. Constraint ve R
 
 ### `messages`
 
-| Alan | Tip | Nullable? | Not |
-| --- | --- | --- | --- |
-| `id` | `uuid` | ✗ | PK |
-| `match_id` | `uuid` | ✗ | `references matches(id)` |
-| `sender_id` | `uuid` | ✗ | `references profiles(id)` |
-| `body` | `text` | ✗ | |
-| `message_type` | `text` | ✗ | default `'text'` |
-| `read_at` | `timestamptz` | ✓ | |
-| `created_at` | `timestamptz` | ✗ | default `now()` |
-| `deleted_at` | `timestamptz` | ✓ | |
+| Alan           | Tip           | Nullable? | Not                       |
+| -------------- | ------------- | --------- | ------------------------- |
+| `id`           | `uuid`        | ✗         | PK                        |
+| `match_id`     | `uuid`        | ✗         | `references matches(id)`  |
+| `sender_id`    | `uuid`        | ✗         | `references profiles(id)` |
+| `body`         | `text`        | ✗         |                           |
+| `message_type` | `text`        | ✗         | default `'text'`          |
+| `read_at`      | `timestamptz` | ✓         |                           |
+| `created_at`   | `timestamptz` | ✗         | default `now()`           |
+| `deleted_at`   | `timestamptz` | ✓         |                           |
 
 ---
 
 ### `blocks`
 
-| Alan | Tip | Nullable? | Not |
-| --- | --- | --- | --- |
-| `id` | `uuid` | ✗ | PK |
-| `blocker_id` | `uuid` | ✗ | `references profiles(id)` |
-| `blocked_id` | `uuid` | ✗ | `references profiles(id)` |
-| `created_at` | `timestamptz` | ✗ | default `now()` |
+| Alan         | Tip           | Nullable? | Not                       |
+| ------------ | ------------- | --------- | ------------------------- |
+| `id`         | `uuid`        | ✗         | PK                        |
+| `blocker_id` | `uuid`        | ✗         | `references profiles(id)` |
+| `blocked_id` | `uuid`        | ✗         | `references profiles(id)` |
+| `created_at` | `timestamptz` | ✗         | default `now()`           |
 
 > `unique(blocker_id, blocked_id)` · `check(blocker_id <> blocked_id)`
 
@@ -231,30 +231,30 @@ Bu bölüm 2.2–2.4 migration'larının kaynak sözleşmesidir. Constraint ve R
 
 ### `reports`
 
-| Alan | Tip | Nullable? | Not |
-| --- | --- | --- | --- |
-| `id` | `uuid` | ✗ | PK |
-| `reporter_id` | `uuid` | ✗ | `references profiles(id)` |
-| `reported_user_id` | `uuid` | ✗ | `references profiles(id)` |
-| `match_id` | `uuid` | ✓ | `references matches(id)` |
-| `message_id` | `uuid` | ✓ | `references messages(id)` |
-| `reason` | `text` | ✗ | |
-| `details` | `text` | ✓ | |
-| `status` | `text` | ✗ | default `'open'` |
-| `created_at` | `timestamptz` | ✗ | default `now()` |
+| Alan               | Tip           | Nullable? | Not                       |
+| ------------------ | ------------- | --------- | ------------------------- |
+| `id`               | `uuid`        | ✗         | PK                        |
+| `reporter_id`      | `uuid`        | ✗         | `references profiles(id)` |
+| `reported_user_id` | `uuid`        | ✗         | `references profiles(id)` |
+| `match_id`         | `uuid`        | ✓         | `references matches(id)`  |
+| `message_id`       | `uuid`        | ✓         | `references messages(id)` |
+| `reason`           | `text`        | ✗         |                           |
+| `details`          | `text`        | ✓         |                           |
+| `status`           | `text`        | ✗         | default `'open'`          |
+| `created_at`       | `timestamptz` | ✗         | default `now()`           |
 
 ---
 
 ### `devices`
 
-| Alan | Tip | Nullable? | Not |
-| --- | --- | --- | --- |
-| `id` | `uuid` | ✗ | PK |
-| `user_id` | `uuid` | ✗ | `references profiles(id)` |
-| `platform` | `text` | ✗ | |
-| `push_token` | `text` | ✗ | |
-| `created_at` | `timestamptz` | ✗ | default `now()` |
-| `updated_at` | `timestamptz` | ✗ | default `now()` |
+| Alan         | Tip           | Nullable? | Not                       |
+| ------------ | ------------- | --------- | ------------------------- |
+| `id`         | `uuid`        | ✗         | PK                        |
+| `user_id`    | `uuid`        | ✗         | `references profiles(id)` |
+| `platform`   | `text`        | ✗         |                           |
+| `push_token` | `text`        | ✗         |                           |
+| `created_at` | `timestamptz` | ✗         | default `now()`           |
+| `updated_at` | `timestamptz` | ✗         | default `now()`           |
 
 > Push token kaydı sonraki notification fazında client tarafından yapılacak.
 
@@ -262,11 +262,11 @@ Bu bölüm 2.2–2.4 migration'larının kaynak sözleşmesidir. Constraint ve R
 
 ### `app_config`
 
-| Alan | Tip | Nullable? | Not |
-| --- | --- | --- | --- |
-| `key` | `text` | ✗ | PK |
-| `value` | `jsonb` | ✗ | |
-| `updated_at` | `timestamptz` | ✗ | default `now()` |
+| Alan         | Tip           | Nullable? | Not             |
+| ------------ | ------------- | --------- | --------------- |
+| `key`        | `text`        | ✗         | PK              |
+| `value`      | `jsonb`       | ✗         |                 |
+| `updated_at` | `timestamptz` | ✗         | default `now()` |
 
 ---
 
@@ -313,56 +313,65 @@ RLS policy davranışlarını netleştirir.
 
 ### 3. Performans İndexleri
 
-| İndex | Amaç |
-| --- | --- |
-| `profiles(availability_state)` | Discover feed filtresi |
-| `profiles(city, country)` | Konum bazlı filtreleme |
-| `likes(from_user_id, to_user_id)` | Çift yön like sorgusu |
-| `likes(to_user_id, action)` | Karşılıklı like tespiti |
-| `matches(status)` | Aktif match listesi |
-| `matches(user_a_id)` | Kullanıcıya ait match sorgusu |
-| `matches(user_b_id)` | Kullanıcıya ait match sorgusu |
-| `match_participants(user_id, status)` | Aktif participant kontrolü |
-| `messages(match_id, created_at)` | Chat feed sıralaması |
-| `blocks(blocker_id, blocked_id)` | Blok varlık kontrolü |
-| `reports(reported_user_id, status)` | Moderasyon sorgusu |
-| `devices(user_id)` | Kullanıcı cihaz listesi |
+| İndex                                 | Amaç                          |
+| ------------------------------------- | ----------------------------- |
+| `profiles(availability_state)`        | Discover feed filtresi        |
+| `profiles(city, country)`             | Konum bazlı filtreleme        |
+| `likes(from_user_id, to_user_id)`     | Çift yön like sorgusu         |
+| `likes(to_user_id, action)`           | Karşılıklı like tespiti       |
+| `matches(status)`                     | Aktif match listesi           |
+| `matches(user_a_id)`                  | Kullanıcıya ait match sorgusu |
+| `matches(user_b_id)`                  | Kullanıcıya ait match sorgusu |
+| `match_participants(user_id, status)` | Aktif participant kontrolü    |
+| `messages(match_id, created_at)`      | Chat feed sıralaması          |
+| `blocks(blocker_id, blocked_id)`      | Blok varlık kontrolü          |
+| `reports(reported_user_id, status)`   | Moderasyon sorgusu            |
+| `devices(user_id)`                    | Kullanıcı cihaz listesi       |
 
 ### 4. RLS Policy Kontratı
 
 SQL yazmadan 2.6 için her tablonun policy davranışı:
 
 **`profiles`**
+
 - Kullanıcı kendi profilini okuyabilir ve güncelleyebilir.
 - Discover feed doğrudan tablo `SELECT` ile değil, `get_discover_feed` RPC üzerinden sunulur;
   client `profiles` tablosunu direkt filtreleyemez.
 
 **`profile_photos` / `profile_prompts` / `preferences`**
+
 - Kullanıcı yalnızca kendi `user_id`'sine ait kayıtları okuyabilir ve yazabilir.
 
 **`likes`**
+
 - Kullanıcı yalnızca kendi `from_user_id` ile `INSERT` yapabilir.
 - Kullanıcı kendi like kayıtlarını okuyabilir.
 
 **`matches` / `match_participants`**
+
 - Client doğrudan `INSERT`, `UPDATE`, `DELETE` yapamaz; tüm yazma işlemleri RPC üzerinden.
 - Kullanıcı, `match_participants`ta participant olduğu match kayıtlarını okuyabilir.
 
 **`messages`**
+
 - Kullanıcı, participant olduğu match'e ait mesajları okuyabilir.
 - Yalnızca `match_participants.status = 'active'` olan katılımcı `INSERT` yapabilir.
 
 **`blocks`**
+
 - Kullanıcı kendi block kayıtlarını yazabilir ve okuyabilir.
 
 **`reports`**
+
 - Kullanıcı kendi report kayıtlarını `INSERT` edebilir.
 - Kullanıcı yalnızca kendi gönderdiği reportları okuyabilir.
 
 **`devices`**
+
 - Kullanıcı kendi cihaz kayıtlarına `INSERT` / `UPDATE` / `DELETE` / `SELECT` yapabilir.
 
 **`app_config`**
+
 - Authenticated kullanıcı okuyabilir.
 - Client yazamaz; yalnızca admin düzeyinde güncelleme yapılır.
 
@@ -426,7 +435,9 @@ latency > 500 ms ölçüldüğünde.
 **Kararlar:**
 
 - **Private bucket** — dosyalar doğrudan URL ile erişilemez.
-- **Signed URL** — client, `storage.createSignedUrl()` ile kısa ömürlü (örn. 60 dk) URL alır.
+- **Signed URL** — kendi fotoğrafları için client `storage.createSignedUrl()` çağırabilir.
+  Başka kullanıcıların fotoğrafları (discover feed, chat) service role üzerinden Edge Function/RPC
+  ile üretilen signed URL ile servis edilir; client direkt okuyamaz.
 - RLS politikası: kullanıcı yalnızca kendi `{user_id}/` prefix'i altına upload yapabilir.
 - Silme: match bittiğinde veya hesap kapatıldığında fotoğraflar temizlenir (Edge Function veya
   DB trigger — Adım 2.7'de kararlaştırılacak).
@@ -458,16 +469,16 @@ güven açısından uygun değil.
 
 Migration'lar `supabase/migrations/` altında numaralı dosyalar olarak oluşturulacak.
 
-| Adım | Kapsam | Bağımlılık |
-| --- | --- | --- |
-| **2.2** | `profiles`, `profile_photos`, `profile_prompts`, `preferences` | — |
-| **2.3** | `likes`, `matches`, `match_participants`, `messages` | 2.2 |
-| **2.4** | `blocks`, `reports`, `devices`, `app_config` | 2.2 |
-| **2.5** | Index'ler, CHECK constraint'ler, partial unique index (match kuralı) | 2.2–2.4 |
-| **2.6** | RLS politikaları (tüm tablolar) | 2.5 |
-| **2.7** | Storage bucket ve politikaları | 2.2 |
-| **2.8** | Seed / test kullanıcıları ve app_config başlangıç değerleri | 2.6 |
-| **2.9** | `npm run supabase:types` — TypeScript tip yenileme | 2.8 |
+| Adım    | Kapsam                                                               | Bağımlılık |
+| ------- | -------------------------------------------------------------------- | ---------- |
+| **2.2** | `profiles`, `profile_photos`, `profile_prompts`, `preferences`       | —          |
+| **2.3** | `likes`, `matches`, `match_participants`, `messages`                 | 2.2        |
+| **2.4** | `blocks`, `reports`, `devices`, `app_config`                         | 2.2        |
+| **2.5** | Index'ler, CHECK constraint'ler, partial unique index (match kuralı) | 2.2–2.4    |
+| **2.6** | RLS politikaları (tüm tablolar)                                      | 2.5        |
+| **2.7** | Storage bucket ve politikaları                                       | 2.2        |
+| **2.8** | Seed / test kullanıcıları ve app_config başlangıç değerleri          | 2.6        |
+| **2.9** | `npm run supabase:types` — TypeScript tip yenileme                   | 2.8        |
 
 2.2–2.4 migrationları tablo oluşturma odaklıdır. 2.5 index/check/unique constraintleri uygular.
 2.6 RLS enable ve policy bloklarını merkezi olarak uygular.
@@ -478,13 +489,13 @@ Migration'lar `supabase/migrations/` altında numaralı dosyalar olarak oluştur
 
 Aşağıdaki konular Aşama 2 içinde veya sonrasında netleştirilecek; şimdilik kapsam dışı.
 
-| Konu | Neden Bekliyor |
-| --- | --- |
-| **PostGIS** | MVP için gerekli değil; yeniden değerlendirme koşulu bölüm 5'te tanımlı |
-| **interests / profile_interests** | İlgi alanı kataloğu ihtiyacı ürün kararına bağlı; profil ekranı netleşince eklenecek |
-| **message_reads** | Okundu alındısı chat fazında değerlendirilecek; şimdilik kapsam dışı |
-| **super_like** | MVP dışı; ürün öncelik sıralamasına göre sonraki sürümde değerlendirilebilir |
-| **Admin panel** | Teknik PRD'de kapsam dışı; moderasyon şimdilik manuel Supabase Studio üzerinden |
-| **Otomatik medya moderasyonu** | ML servisi entegrasyonu (Rekognition vb.) beta sonrasına bırakıldı |
-| **Notification scheduling** | `pg_cron` veya Edge Function tercihine Adım 2.4'te karar verilecek |
-| **Realtime publication detayları** | `messages` ve `matches` için Supabase Realtime ayarları chat fazında yapılacak |
+| Konu                               | Neden Bekliyor                                                                       |
+| ---------------------------------- | ------------------------------------------------------------------------------------ |
+| **PostGIS**                        | MVP için gerekli değil; yeniden değerlendirme koşulu bölüm 5'te tanımlı              |
+| **interests / profile_interests**  | İlgi alanı kataloğu ihtiyacı ürün kararına bağlı; profil ekranı netleşince eklenecek |
+| **message_reads**                  | Okundu alındısı chat fazında değerlendirilecek; şimdilik kapsam dışı                 |
+| **super_like**                     | MVP dışı; ürün öncelik sıralamasına göre sonraki sürümde değerlendirilebilir         |
+| **Admin panel**                    | Teknik PRD'de kapsam dışı; moderasyon şimdilik manuel Supabase Studio üzerinden      |
+| **Otomatik medya moderasyonu**     | ML servisi entegrasyonu (Rekognition vb.) beta sonrasına bırakıldı                   |
+| **Notification scheduling**        | `pg_cron` veya Edge Function tercihine Adım 2.4'te karar verilecek                   |
+| **Realtime publication detayları** | `messages` ve `matches` için Supabase Realtime ayarları chat fazında yapılacak       |
