@@ -41,11 +41,11 @@ supabase migration new <açıklayıcı_isim>
 # supabase/migrations/<timestamp>_<isim>.sql
 
 # Local'e uygula
-supabase db reset   # ya da
+npm run supabase:db:reset   # ya da
 supabase migration up
 
 # TypeScript tiplerini yenile
-supabase gen types typescript --local > types/database.ts
+npm run supabase:types
 ```
 
 ---
@@ -80,18 +80,20 @@ supabase db pull
 - **Service role key sadece Edge Function'larda ve CI/CD ortamında kullanılır.**
 - Client SDK her zaman `EXPO_PUBLIC_SUPABASE_PUBLISHABLE_KEY` (anon key) ile başlatılır.
 - RLS (Row Level Security) tüm tablolarda varsayılan olarak açık tutulur.
-- Her migration, RLS politikasını migration dosyasının içinde tanımlar.
+- RLS enable ve policy blokları 2.6 migration'ında merkezi olarak uygulanır; her migration dosyasına ayrı ayrı yazılmaz.
 
 ---
 
 ## TypeScript Tipleri
 
-```bash
-# Local schema'dan tip üret
-supabase gen types typescript --local > types/database.ts
+Her migration sonrası `types/database.ts` güncellenmelidir.
 
-# Remote schema'dan tip üret
-supabase gen types typescript --project-id <id> > types/database.ts
+```bash
+# Varsayılan: local schema'dan tip üret (local Docker çalışıyorken)
+npm run supabase:types
+
+# Remote schema'dan tip üret (local Docker çalışmıyorsa veya remote'dan kontrol gerekiyorsa)
+npm run supabase:types:remote
 ```
 
 `types/database.ts` dosyası commit edilir; el ile düzenlenmez.

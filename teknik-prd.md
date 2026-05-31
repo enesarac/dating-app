@@ -852,6 +852,14 @@ Zarif ele alinmasi gereken durumlar:
 
 Bu bolum, uygulama gelistirme sirasinda takip edilecek genel yapilacaklar listesi olarak kullanilacaktir. Maddeler `1.1`, `1.2`, `1.3` seklinde kucuk is paketlerine bolunmustur.
 
+Durum etiketleri:
+
+- `[done]`: Tamamlandi ve review edildi.
+- `[active]`: Su anda uzerinde calisilan is paketi.
+- `[todo]`: Henuz baslanmadi.
+- `[deferred]`: MVP disina veya sonraki faza birakildi.
+- `[watch]`: Aktif olarak izlenecek risk veya guardrail.
+
 Iki kisilik vibe coding icin ana model:
 
 ### Model A: Dikey Bolunme (Ekran/Ozellik Bazli)
@@ -886,202 +894,202 @@ Ortak tablo, RLS veya RPC degisikligi baska feature'i etkiliyorsa degisiklik `Pa
 
 ### 21.1 Asama 1: Proje Kurulumu ve Teknik Kararlar
 
-- `1.1` Karar bekleyen teknolojileri netlestir. Sahip: Pair. Cikti: navigasyon, state, UI, test, analitik ve bildirim kararlari yazili hale gelir.
-- `1.2` Expo React Native projesini TypeScript ile olustur. Sahip: Pair. Cikti: calisan bos uygulama.
-- `1.3` Supabase projesini ve local/remote ortam stratejisini kur. Sahip: Pair. Cikti: Supabase URL/key/env yapisi hazir olur.
-- `1.4` Ortam degiskenlerini ayir. Sahip: Pair. Cikti: `.env.example`, development ve production degisken listesi.
-- `1.5` Feature bazli klasor mimarisini olustur. Sahip: Pair. Cikti: `app`, `features/auth`, `features/discover`, `features/profile`, `features/match`, `features/chat`, `features/safety`, `lib`, `theme`, `types` yapisi.
-- `1.6` Kod kalite araclarini kur. Sahip: Pair. Cikti: TypeScript check, lint, format ve temel test komutlari.
-- `1.7` Tema tokenlarini baslat. Sahip: Pair. Cikti: renk, spacing, typography, radius, shadow/elevation tokenlari.
-- `1.8` Supabase migration akisini belirle. Sahip: Pair. Cikti: migration dosyalari ve calistirma komutlari netlesir.
-- `1.9` Vibe coding calisma kuralini yaz. Sahip: Pair. Cikti: feature sahibi, prompt notu, branch/commit, review ve entegrasyon kurallari netlesir.
-- `1.10` UI system kararini ve kalite barini yaz. Sahip: Pair. Cikti: `docs/decisions/0002-ui-system.md` icinde custom design system, temel component primitive'leri, NativeWind/Tamagui kullanmama gerekcesi, UI altyapi paketleri ve premium MVP kalite kriterleri netlesir.
+- `[done] 1.1` Karar bekleyen teknolojileri netlestir. Sahip: Pair. Cikti: navigasyon, state, UI, test, analitik ve bildirim kararlari yazili hale gelir.
+- `[done] 1.2` Expo React Native projesini TypeScript ile olustur. Sahip: Pair. Cikti: calisan bos uygulama.
+- `[done] 1.3` Supabase projesini ve local/remote ortam stratejisini kur. Sahip: Pair. Cikti: Supabase URL/key/env yapisi hazir olur.
+- `[done] 1.4` Ortam degiskenlerini ayir. Sahip: Pair. Cikti: `.env.example`, development ve production degisken listesi.
+- `[done] 1.5` Feature bazli klasor mimarisini olustur. Sahip: Pair. Cikti: `app`, `features/auth`, `features/discover`, `features/profile`, `features/match`, `features/chat`, `features/safety`, `lib`, `theme`, `types` yapisi.
+- `[done] 1.6` Kod kalite araclarini kur. Sahip: Pair. Cikti: TypeScript check, lint, format ve temel test komutlari.
+- `[done] 1.7` Tema tokenlarini baslat. Sahip: Pair. Cikti: renk, spacing, typography, radius, shadow/elevation tokenlari.
+- `[done] 1.8` Supabase migration akisini belirle. Sahip: Pair. Cikti: migration dosyalari ve calistirma komutlari netlesir.
+- `[done] 1.9` Vibe coding calisma kuralini yaz. Sahip: Pair. Cikti: feature sahibi, prompt notu, branch/commit, review ve entegrasyon kurallari netlesir.
+- `[done] 1.10` UI system kararini ve kalite barini yaz. Sahip: Pair. Cikti: `docs/decisions/0002-ui-system.md` icinde custom design system, temel component primitive'leri, NativeWind/Tamagui kullanmama gerekcesi, UI altyapi paketleri ve premium MVP kalite kriterleri netlesir.
 
 ### 21.2 Asama 2: Ortak Supabase Veri Modeli ve Guvenlik Temeli
 
-- `2.1` Ortak database sema taslagini kesinlestir. Sahip: Pair. Cikti: feature sahipleri hangi tabloya dokunacagini bilir.
-- `2.2` `profiles`, `profile_photos`, `profile_prompts`, `preferences` tablolarini olustur. Sahip: Auth/Profile feature sahibi. Cikti: Auth/Profile feature'lari icin temel sema.
-- `2.3` `likes`, `matches`, `match_participants`, `messages` tablolarini olustur. Sahip: Discover/Match/Chat feature sahibi. Cikti: Discover/Match/Chat feature'lari icin temel sema.
-- `2.4` `blocks`, `reports`, `devices`, `app_config` tablolarini olustur. Sahip: Safety/Notification feature sahibi. Cikti: safety, notification ve app ayarlari icin sema.
-- `2.5` Kritik index ve constraintleri ekle. Sahip: Pair. Cikti: kullanici basina tek aktif match DB seviyesinde korunur.
-- `2.6` Ilk RLS politikalarini yaz. Sahip: Pair. Cikti: kullanici sadece yetkili oldugu verileri okuyup yazabilir.
-- `2.7` Storage bucket ve foto erisim politikasini kur. Sahip: Auth/Profile feature sahibi. Cikti: profil fotografi upload altyapisi.
-- `2.8` Seed/test kullanicilari hazirla. Sahip: Discover/Match feature sahibi. Cikti: gelistirme sirasinda kesfet ve match test edilebilir.
-- `2.9` Supabase TypeScript tiplerini uret ve client'a bagla. Sahip: Pair. Cikti: tum feature'larda tipli DB erisimi.
+- `[done] 2.1` Ortak database sema taslagini kesinlestir. Sahip: Pair. Cikti: feature sahipleri hangi tabloya dokunacagini bilir.
+- `[active] 2.2` `profiles`, `profile_photos`, `profile_prompts`, `preferences` tablolarini olustur. Sahip: Auth/Profile feature sahibi. Cikti: Auth/Profile feature'lari icin temel sema.
+- `[todo] 2.3` `likes`, `matches`, `match_participants`, `messages` tablolarini olustur. Sahip: Discover/Match/Chat feature sahibi. Cikti: Discover/Match/Chat feature'lari icin temel sema.
+- `[todo] 2.4` `blocks`, `reports`, `devices`, `app_config` tablolarini olustur. Sahip: Safety/Notification feature sahibi. Cikti: safety, notification ve app ayarlari icin sema.
+- `[todo] 2.5` Kritik index ve constraintleri ekle. Sahip: Pair. Cikti: kullanici basina tek aktif match DB seviyesinde korunur.
+- `[todo] 2.6` Ilk RLS politikalarini yaz. Sahip: Pair. Cikti: kullanici sadece yetkili oldugu verileri okuyup yazabilir.
+- `[todo] 2.7` Storage bucket ve foto erisim politikasini kur. Sahip: Auth/Profile feature sahibi. Cikti: profil fotografi upload altyapisi.
+- `[todo] 2.8` Seed/test kullanicilari hazirla. Sahip: Discover/Match feature sahibi. Cikti: gelistirme sirasinda kesfet ve match test edilebilir.
+- `[todo] 2.9` Supabase TypeScript tiplerini uret ve client'a bagla. Sahip: Pair. Cikti: tum feature'larda tipli DB erisimi.
 
 ### 21.3 Asama 3: Feature Slice - Auth ve Onboarding
 
 Sahip: `Feature sahibi`
 
-- `3.1` Auth feature prompt/notunu hazirla. Cikti: ekranlar, Supabase ihtiyaclari, kabul kriterleri ve testler netlesir.
-- `3.2` Splash ve session kontrol akisini kur. Cikti: kullanici durumuna gore dogru ekrana yonlendirme.
-- `3.3` Giris/kayit ekranlarini yap. Cikti: Supabase Auth ile calisan temel auth.
-- `3.4` Onboarding temel bilgi ekranlarini yap. Cikti: ad, dogum tarihi, cinsiyet ve niyet bilgileri alinabilir.
-- `3.5` Fotograf yukleme ekranini yap. Cikti: kullanici profil fotografi yukleyebilir.
-- `3.6` Tercih ve filtre onboarding ekranini yap. Cikti: yas, mesafe, cinsiyet tercihi kaydedilebilir.
-- `3.7` `complete_onboarding` RPC/function mantigini yaz. Cikti: profil tamamlaninca kullanici `active` olur.
-- `3.8` Onboarding route guard'larini bagla. Cikti: eksik profilli kullanici kesfete gecemez.
-- `3.9` Auth/onboarding hata ve bos durumlarini tamamla. Cikti: upload, izin ve validasyon hatalari anlasilir gosterilir.
-- `3.10` Auth/onboarding manuel test listesini calistir. Cikti: yeni kullanici kayit olup aktif hale gelebilir.
+- `[todo] 3.1` Auth feature prompt/notunu hazirla. Cikti: ekranlar, Supabase ihtiyaclari, kabul kriterleri ve testler netlesir.
+- `[todo] 3.2` Splash ve session kontrol akisini kur. Cikti: kullanici durumuna gore dogru ekrana yonlendirme.
+- `[todo] 3.3` Giris/kayit ekranlarini yap. Cikti: Supabase Auth ile calisan temel auth.
+- `[todo] 3.4` Onboarding temel bilgi ekranlarini yap. Cikti: ad, dogum tarihi, cinsiyet ve niyet bilgileri alinabilir.
+- `[todo] 3.5` Fotograf yukleme ekranini yap. Cikti: kullanici profil fotografi yukleyebilir.
+- `[todo] 3.6` Tercih ve filtre onboarding ekranini yap. Cikti: yas, mesafe, cinsiyet tercihi kaydedilebilir.
+- `[todo] 3.7` `complete_onboarding` RPC/function mantigini yaz. Cikti: profil tamamlaninca kullanici `active` olur.
+- `[todo] 3.8` Onboarding route guard'larini bagla. Cikti: eksik profilli kullanici kesfete gecemez.
+- `[todo] 3.9` Auth/onboarding hata ve bos durumlarini tamamla. Cikti: upload, izin ve validasyon hatalari anlasilir gosterilir.
+- `[todo] 3.10` Auth/onboarding manuel test listesini calistir. Cikti: yeni kullanici kayit olup aktif hale gelebilir.
 
 ### 21.4 Asama 4: Feature Slice - Ana Sayfa ve Kesfet
 
 Sahip: `Feature sahibi`
 
-- `4.1` Discover feature prompt/notunu hazirla. Cikti: ana sayfa, listeleme, kesfet ve bos durumlar netlesir.
-- `4.2` Auth sonrasi ana app shell ve temel navigasyonu kur. Cikti: authenticated kullanici ana ekrana gecer.
-- `4.3` `get_discover_feed` RPC/function mantigini yaz. Cikti: sadece uygun ve gorunur profiller gelir.
-- `4.4` Kesfet kart UI'ini yap. Cikti: fotograf odakli profil karti.
-- `4.5` Profil detay modal/sayfasini yap. Cikti: kullanici karttan detaylara inebilir.
-- `4.6` Like/pass aksiyonlarini client ve backend'e bagla. Cikti: `likes` tablosuna guvenli aksiyon yazilir.
-- `4.7` Bos havuz, filtre sonucu yok ve hata ekranlarini yap. Cikti: kesfet akisi bosken uygulama guvenli davranir.
-- `4.8` Kilitli kullanici icin kesfet engelini ekle. Cikti: `locked` kullanici profil gormez.
-- `4.9` Kesfet performansini iyilestir. Cikti: sayfali veri, fotograf on-yukleme ve akici kart gecisi.
-- `4.10` Kesfet manuel test listesini calistir. Cikti: aktif kullanici profilleri gorur, begenir ve gecer.
+- `[todo] 4.1` Discover feature prompt/notunu hazirla. Cikti: ana sayfa, listeleme, kesfet ve bos durumlar netlesir.
+- `[todo] 4.2` Auth sonrasi ana app shell ve temel navigasyonu kur. Cikti: authenticated kullanici ana ekrana gecer.
+- `[todo] 4.3` `get_discover_feed` RPC/function mantigini yaz. Cikti: sadece uygun ve gorunur profiller gelir.
+- `[todo] 4.4` Kesfet kart UI'ini yap. Cikti: fotograf odakli profil karti.
+- `[todo] 4.5` Profil detay modal/sayfasini yap. Cikti: kullanici karttan detaylara inebilir.
+- `[todo] 4.6` Like/pass aksiyonlarini client ve backend'e bagla. Cikti: `likes` tablosuna guvenli aksiyon yazilir.
+- `[todo] 4.7` Bos havuz, filtre sonucu yok ve hata ekranlarini yap. Cikti: kesfet akisi bosken uygulama guvenli davranir.
+- `[todo] 4.8` Kilitli kullanici icin kesfet engelini ekle. Cikti: `locked` kullanici profil gormez.
+- `[todo] 4.9` Kesfet performansini iyilestir. Cikti: sayfali veri, fotograf on-yukleme ve akici kart gecisi.
+- `[todo] 4.10` Kesfet manuel test listesini calistir. Cikti: aktif kullanici profilleri gorur, begenir ve gecer.
 
 ### 21.5 Asama 5: Feature Slice - Profil ve Ayarlar
 
 Sahip: `Feature sahibi`
 
-- `5.1` Profile/settings feature prompt/notunu hazirla. Cikti: profil duzenleme ve ayar kapsamı netlesir.
-- `5.2` Profil onizleme ekranini yap. Cikti: kullanici kendi profilini kesfette gorunecegi gibi gorebilir.
-- `5.3` Profil duzenleme ekranini yap. Cikti: temel profil alanlari guncellenebilir.
-- `5.4` Fotograf siralama/silme/ana fotograf secme akislarini yap. Cikti: profil galerisi yonetilebilir.
-- `5.5` Tercihleri duzenleme ekranini yap. Cikti: kesfet filtreleri sonradan degistirilebilir.
-- `5.6` Hesap duraklatma ve tekrar aktif etme mantigini kur. Cikti: `paused` durumundaki kullanici havuzda gorunmez.
-- `5.7` Hesap silme veya silme talebi akisini tanimla. Cikti: gizlilik politikasina uygun hesap kapatma davranisi.
-- `5.8` Gizlilik, topluluk kurallari ve yardim ekranlarini ekle. Cikti: temel yasal/guvenlik sayfalari.
-- `5.9` Profil ve ayarlar manuel test listesini calistir. Cikti: kullanici profilini ve tercihlerini duzenleyebilir.
+- `[todo] 5.1` Profile/settings feature prompt/notunu hazirla. Cikti: profil duzenleme ve ayar kapsamı netlesir.
+- `[todo] 5.2` Profil onizleme ekranini yap. Cikti: kullanici kendi profilini kesfette gorunecegi gibi gorebilir.
+- `[todo] 5.3` Profil duzenleme ekranini yap. Cikti: temel profil alanlari guncellenebilir.
+- `[todo] 5.4` Fotograf siralama/silme/ana fotograf secme akislarini yap. Cikti: profil galerisi yonetilebilir.
+- `[todo] 5.5` Tercihleri duzenleme ekranini yap. Cikti: kesfet filtreleri sonradan degistirilebilir.
+- `[todo] 5.6` Hesap duraklatma ve tekrar aktif etme mantigini kur. Cikti: `paused` durumundaki kullanici havuzda gorunmez.
+- `[todo] 5.7` Hesap silme veya silme talebi akisini tanimla. Cikti: gizlilik politikasina uygun hesap kapatma davranisi.
+- `[todo] 5.8` Gizlilik, topluluk kurallari ve yardim ekranlarini ekle. Cikti: temel yasal/guvenlik sayfalari.
+- `[todo] 5.9` Profil ve ayarlar manuel test listesini calistir. Cikti: kullanici profilini ve tercihlerini duzenleyebilir.
 
 ### 21.6 Asama 6: Mutlak Odaklanma Modu ve Match Kilidi
 
-- `6.1` Match/locked mode feature prompt/notunu hazirla. Sahip: Pair. Cikti: tek aktif match kuralinin tum kabul kriterleri netlesir.
-- `6.2` `submit_profile_action` RPC/function mantigini tamamla. Sahip: Discover/Match feature sahibi. Cikti: like sonrasi match kontrolu backend'de yapilir.
-- `6.3` `create_match_transaction` mantigini yaz. Sahip: Pair. Cikti: iki kullanici atomik olarak `locked` duruma gecer.
-- `6.4` `match_participants` uzerinden tek aktif match constraintini test et. Sahip: Pair. Cikti: ayni kullanici icin ikinci aktif match olusmaz.
-- `6.5` Match olustu ekranini yap. Sahip: Discover/Match feature sahibi. Cikti: kullanici match oldugunu anlar ve sohbete yonlenir.
-- `6.6` Kullanici state senkronizasyonunu bagla. Sahip: Discover/Match feature sahibi. Cikti: app acilisinda `active` veya `locked` durum dogru okunur.
-- `6.7` Kilitli mod ana ekranini yap. Sahip: Discover/Match feature sahibi. Cikti: kullanici aktif sohbetine odaklanan ekrani gorur.
-- `6.8` Race condition testlerini yaz. Sahip: Pair. Cikti: ayni anda birden fazla match olusma riski test edilir.
-- `6.9` Match bitince havuza donus senaryosunu dogrula. Sahip: Pair. Cikti: iki taraf da dogru sekilde `active` olur.
+- `[todo] 6.1` Match/locked mode feature prompt/notunu hazirla. Sahip: Pair. Cikti: tek aktif match kuralinin tum kabul kriterleri netlesir.
+- `[todo] 6.2` `submit_profile_action` RPC/function mantigini tamamla. Sahip: Discover/Match feature sahibi. Cikti: like sonrasi match kontrolu backend'de yapilir.
+- `[todo] 6.3` `create_match_transaction` mantigini yaz. Sahip: Pair. Cikti: iki kullanici atomik olarak `locked` duruma gecer.
+- `[todo] 6.4` `match_participants` uzerinden tek aktif match constraintini test et. Sahip: Pair. Cikti: ayni kullanici icin ikinci aktif match olusmaz.
+- `[todo] 6.5` Match olustu ekranini yap. Sahip: Discover/Match feature sahibi. Cikti: kullanici match oldugunu anlar ve sohbete yonlenir.
+- `[todo] 6.6` Kullanici state senkronizasyonunu bagla. Sahip: Discover/Match feature sahibi. Cikti: app acilisinda `active` veya `locked` durum dogru okunur.
+- `[todo] 6.7` Kilitli mod ana ekranini yap. Sahip: Discover/Match feature sahibi. Cikti: kullanici aktif sohbetine odaklanan ekrani gorur.
+- `[todo] 6.8` Race condition testlerini yaz. Sahip: Pair. Cikti: ayni anda birden fazla match olusma riski test edilir.
+- `[todo] 6.9` Match bitince havuza donus senaryosunu dogrula. Sahip: Pair. Cikti: iki taraf da dogru sekilde `active` olur.
 
 ### 21.7 Asama 7: Feature Slice - Sohbet
 
-- `7.1` Chat feature prompt/notunu hazirla. Sahip: Chat feature sahibi. Cikti: sohbet ekranlari, realtime ve kapanis senaryolari netlesir.
-- `7.2` Mesaj RLS politikalarini netlestir. Sahip: Chat feature sahibi. Cikti: sadece aktif match katilimcilari mesaj okuyup yazabilir.
-- `7.3` Sohbet ekranini yap. Sahip: Chat feature sahibi. Cikti: mesaj listesi ve mesaj yazma alani.
-- `7.4` Mesaj gonderme backend/client baglantisini kur. Sahip: Chat feature sahibi. Cikti: mesaj yazildiginda `last_interaction_at` guncellenir.
-- `7.5` Supabase Realtime mesaj aboneligini ekle. Sahip: Chat feature sahibi. Cikti: yeni mesajlar anlik gorunur.
-- `7.6` Okundu bilgisi MVP kapsaminda gerekiyorsa ekle. Sahip: Pair. Cikti: `read_at` davranisi netlesir.
-- `7.7` Yaziyor gostergesi gerekiyorsa presence/broadcast ile ekle. Sahip: Pair. Cikti: typing davranisi calisir.
-- `7.8` Manuel "Konusmayi Bitir" akisini yap. Sahip: Chat feature sahibi. Cikti: match kapanir, iki kullanici havuza doner.
-- `7.9` Sohbet icinden engelleme ve sikayet giris noktalarini ekle. Sahip: Chat feature sahibi. Cikti: kullanici sohbetten guvenlik aksiyonlarina ulasir.
-- `7.10` Chat manuel test listesini calistir. Sahip: Chat feature sahibi. Cikti: aktif match katilimcilari mesajlasabilir.
+- `[todo] 7.1` Chat feature prompt/notunu hazirla. Sahip: Chat feature sahibi. Cikti: sohbet ekranlari, realtime ve kapanis senaryolari netlesir.
+- `[todo] 7.2` Mesaj RLS politikalarini netlestir. Sahip: Chat feature sahibi. Cikti: sadece aktif match katilimcilari mesaj okuyup yazabilir.
+- `[todo] 7.3` Sohbet ekranini yap. Sahip: Chat feature sahibi. Cikti: mesaj listesi ve mesaj yazma alani.
+- `[todo] 7.4` Mesaj gonderme backend/client baglantisini kur. Sahip: Chat feature sahibi. Cikti: mesaj yazildiginda `last_interaction_at` guncellenir.
+- `[todo] 7.5` Supabase Realtime mesaj aboneligini ekle. Sahip: Chat feature sahibi. Cikti: yeni mesajlar anlik gorunur.
+- `[todo] 7.6` Okundu bilgisi MVP kapsaminda gerekiyorsa ekle. Sahip: Pair. Cikti: `read_at` davranisi netlesir.
+- `[todo] 7.7` Yaziyor gostergesi gerekiyorsa presence/broadcast ile ekle. Sahip: Pair. Cikti: typing davranisi calisir.
+- `[todo] 7.8` Manuel "Konusmayi Bitir" akisini yap. Sahip: Chat feature sahibi. Cikti: match kapanir, iki kullanici havuza doner.
+- `[todo] 7.9` Sohbet icinden engelleme ve sikayet giris noktalarini ekle. Sahip: Chat feature sahibi. Cikti: kullanici sohbetten guvenlik aksiyonlarina ulasir.
+- `[todo] 7.10` Chat manuel test listesini calistir. Sahip: Chat feature sahibi. Cikti: aktif match katilimcilari mesajlasabilir.
 
 ### 21.8 Asama 8: Feature Slice - Guvenlik, Timeout ve Bildirimler
 
-- `8.1` Safety/notification feature prompt/notunu hazirla. Sahip: Safety/Notification feature sahibi. Cikti: block, report, timeout ve bildirim senaryolari netlesir.
-- `8.2` Report kayit ve listeleme mantigini tamamla. Sahip: Safety/Notification feature sahibi. Cikti: sikayetler takip edilebilir.
-- `8.3` Block davranisini feed/chat sorgularina uygula. Sahip: Safety/Notification feature sahibi. Cikti: engellenen kullanicilar birbirini gormez.
-- `8.4` `app_config.match_timeout_hours` ayarini ekle. Sahip: Safety/Notification feature sahibi. Cikti: timeout suresi kod deploy etmeden degisebilir.
-- `8.5` `expire_inactive_matches` fonksiyonunu yaz. Sahip: Safety/Notification feature sahibi. Cikti: sessiz kalan matchler otomatik kapanir.
-- `8.6` Zamanlanmis gorev mekanizmasini kur. Sahip: Safety/Notification feature sahibi. Cikti: timeout kontrolu periyodik calisir.
-- `8.7` Timeout yaklasiyor uyarisi icin kural tanimla. Sahip: Pair. Cikti: gerekiyorsa kullaniciya hatirlatma gonderilir.
-- `8.8` Push token kayit akisini yap. Sahip: Safety/Notification feature sahibi. Cikti: cihaz tokenlari `devices` tablosuna kaydedilir.
-- `8.9` Yeni match ve yeni mesaj bildirimlerini bagla. Sahip: Pair. Cikti: backend tetiklemeli temel bildirimler calisir.
-- `8.10` Match bitti/expired bildirimlerini bagla. Sahip: Pair. Cikti: kullanici durum degisiminden haberdar olur.
-- `8.11` App resume oldugunda state yenilemeyi ekle. Sahip: Safety/Notification feature sahibi. Cikti: background sonrasi kilit/match durumu dogru gorunur.
-- `8.12` Safety/timeout/bildirim manuel test listesini calistir. Sahip: Safety/Notification feature sahibi. Cikti: guvenlik ve timeout akislarinda temel sorun kalmaz.
+- `[todo] 8.1` Safety/notification feature prompt/notunu hazirla. Sahip: Safety/Notification feature sahibi. Cikti: block, report, timeout ve bildirim senaryolari netlesir.
+- `[todo] 8.2` Report kayit ve listeleme mantigini tamamla. Sahip: Safety/Notification feature sahibi. Cikti: sikayetler takip edilebilir.
+- `[todo] 8.3` Block davranisini feed/chat sorgularina uygula. Sahip: Safety/Notification feature sahibi. Cikti: engellenen kullanicilar birbirini gormez.
+- `[todo] 8.4` `app_config.match_timeout_hours` ayarini ekle. Sahip: Safety/Notification feature sahibi. Cikti: timeout suresi kod deploy etmeden degisebilir.
+- `[todo] 8.5` `expire_inactive_matches` fonksiyonunu yaz. Sahip: Safety/Notification feature sahibi. Cikti: sessiz kalan matchler otomatik kapanir.
+- `[todo] 8.6` Zamanlanmis gorev mekanizmasini kur. Sahip: Safety/Notification feature sahibi. Cikti: timeout kontrolu periyodik calisir.
+- `[todo] 8.7` Timeout yaklasiyor uyarisi icin kural tanimla. Sahip: Pair. Cikti: gerekiyorsa kullaniciya hatirlatma gonderilir.
+- `[todo] 8.8` Push token kayit akisini yap. Sahip: Safety/Notification feature sahibi. Cikti: cihaz tokenlari `devices` tablosuna kaydedilir.
+- `[todo] 8.9` Yeni match ve yeni mesaj bildirimlerini bagla. Sahip: Pair. Cikti: backend tetiklemeli temel bildirimler calisir.
+- `[todo] 8.10` Match bitti/expired bildirimlerini bagla. Sahip: Pair. Cikti: kullanici durum degisiminden haberdar olur.
+- `[todo] 8.11` App resume oldugunda state yenilemeyi ekle. Sahip: Safety/Notification feature sahibi. Cikti: background sonrasi kilit/match durumu dogru gorunur.
+- `[todo] 8.12` Safety/timeout/bildirim manuel test listesini calistir. Sahip: Safety/Notification feature sahibi. Cikti: guvenlik ve timeout akislarinda temel sorun kalmaz.
 
 ### 21.9 Asama 9: Entegrasyon, Test ve Kalite
 
-- `9.1` Feature entegrasyon gunu yap. Sahip: Pair. Cikti: Auth, Discover, Profile, Match, Chat ve Safety akislarinin birbirine baglantisi dogrulanir.
-- `9.2` Fotograf/profil moderasyon statuslerini UI'a yansit. Sahip: Profile feature sahibi. Cikti: pending/rejected durumlari anlasilir olur.
-- `9.3` Kritik unit testleri yaz. Sahip: Pair. Cikti: validation, state mapping ve timeout hesaplari test edilir.
-- `9.4` Kritik integration testleri yaz. Sahip: Pair. Cikti: match create/end/expire ve RLS davranisi test edilir.
-- `9.5` E2E smoke test akislarini hazirla. Sahip: Pair. Cikti: onboarding, discover, match, chat, end match test edilir.
-- `9.6` Accessibility ve platform polish yap. Sahip: Feature sahipleri. Cikti: iOS/Android dokunma, safe area, font scaling kontrolleri.
-- `9.7` Performans ve realtime abonelik kontrolu yap. Sahip: Feature sahipleri. Cikti: gereksiz dinleme, yavas sorgu ve render sorunlari azalir.
-- `9.8` Ortak bug bash yap. Sahip: Pair. Cikti: P0/P1 hatalar listelenir ve kapanir.
+- `[todo] 9.1` Feature entegrasyon gunu yap. Sahip: Pair. Cikti: Auth, Discover, Profile, Match, Chat ve Safety akislarinin birbirine baglantisi dogrulanir.
+- `[todo] 9.2` Fotograf/profil moderasyon statuslerini UI'a yansit. Sahip: Profile feature sahibi. Cikti: pending/rejected durumlari anlasilir olur.
+- `[todo] 9.3` Kritik unit testleri yaz. Sahip: Pair. Cikti: validation, state mapping ve timeout hesaplari test edilir.
+- `[todo] 9.4` Kritik integration testleri yaz. Sahip: Pair. Cikti: match create/end/expire ve RLS davranisi test edilir.
+- `[todo] 9.5` E2E smoke test akislarini hazirla. Sahip: Pair. Cikti: onboarding, discover, match, chat, end match test edilir.
+- `[todo] 9.6` Accessibility ve platform polish yap. Sahip: Feature sahipleri. Cikti: iOS/Android dokunma, safe area, font scaling kontrolleri.
+- `[todo] 9.7` Performans ve realtime abonelik kontrolu yap. Sahip: Feature sahipleri. Cikti: gereksiz dinleme, yavas sorgu ve render sorunlari azalir.
+- `[todo] 9.8` Ortak bug bash yap. Sahip: Pair. Cikti: P0/P1 hatalar listelenir ve kapanir.
 
 ### 21.10 Asama 10: Beta Hazirlik ve Release
 
-- `10.1` App icon, splash ve temel marka varliklarini hazirla. Sahip: Feature sahibi. Cikti: build kimligi tamamlanir.
-- `10.2` EAS build profillerini kur. Sahip: Pair. Cikti: development, preview ve production build alinabilir.
-- `10.3` Supabase staging/production ayrimini netlestir. Sahip: Pair. Cikti: test verisi ve canli veri ayrilir.
-- `10.4` Gizlilik metinleri ve store izin aciklamalarini hazirla. Sahip: Pair. Cikti: konum, fotograf ve bildirim izinleri aciklanir.
-- `10.5` Internal beta build dagit. Sahip: Pair. Cikti: iki kisi ve yakin test grubu uygulamayi deneyebilir.
-- `10.6` Beta bug listesini onceliklendir. Sahip: Pair. Cikti: P0/P1/P2 hata listesi.
-- `10.7` Release checklistini tamamla. Sahip: Pair. Cikti: MVP kabul kriterleri tek tek dogrulanir.
+- `[todo] 10.1` App icon, splash ve temel marka varliklarini hazirla. Sahip: Feature sahibi. Cikti: build kimligi tamamlanir.
+- `[todo] 10.2` EAS build profillerini kur. Sahip: Pair. Cikti: development, preview ve production build alinabilir.
+- `[todo] 10.3` Supabase staging/production ayrimini netlestir. Sahip: Pair. Cikti: test verisi ve canli veri ayrilir.
+- `[todo] 10.4` Gizlilik metinleri ve store izin aciklamalarini hazirla. Sahip: Pair. Cikti: konum, fotograf ve bildirim izinleri aciklanir.
+- `[todo] 10.5` Internal beta build dagit. Sahip: Pair. Cikti: iki kisi ve yakin test grubu uygulamayi deneyebilir.
+- `[todo] 10.6` Beta bug listesini onceliklendir. Sahip: Pair. Cikti: P0/P1/P2 hata listesi.
+- `[todo] 10.7` Release checklistini tamamla. Sahip: Pair. Cikti: MVP kabul kriterleri tek tek dogrulanir.
 
 ### 21.11 Asama 11: MVP Sonrasi Gelistirmeler
 
-- `11.1` Gelismis moderasyon paneli veya admin arayuzu planla. Sahip: Pair.
-- `11.2` Okundu/yaziyor/gorsel mesaj gibi chat kalitesi ozelliklerini genislet. Sahip: Pair.
-- `11.3` Profil dogrulama veya guven rozeti ekle. Sahip: Pair.
-- `11.4` Analitik dashboard kur. Sahip: Pair.
-- `11.5` Ucretli ozellikler ve abonelik mimarisini tasarla. Sahip: Pair.
-- `11.6` AI destekli profil iyilestirme veya sohbet onerilerini degerlendir. Sahip: Pair.
+- `[todo] 11.1` Gelismis moderasyon paneli veya admin arayuzu planla. Sahip: Pair.
+- `[todo] 11.2` Okundu/yaziyor/gorsel mesaj gibi chat kalitesi ozelliklerini genislet. Sahip: Pair.
+- `[todo] 11.3` Profil dogrulama veya guven rozeti ekle. Sahip: Pair.
+- `[todo] 11.4` Analitik dashboard kur. Sahip: Pair.
+- `[todo] 11.5` Ucretli ozellikler ve abonelik mimarisini tasarla. Sahip: Pair.
+- `[todo] 11.6` AI destekli profil iyilestirme veya sohbet onerilerini degerlendir. Sahip: Pair.
 
 ### 21.12 Her Is Paketi Icin Definition of Done
 
 Bir is paketi tamamlandi sayilmak icin:
 
-- Ilgili ekran, function veya migration calisir durumda olmalidir.
-- Hata ve bos durumlar en az temel seviyede ele alinmalidir.
-- Feature sahibi, o feature'in UI + logic + Supabase ihtiyaclarini birlikte tamamlamalidir.
-- Feature prompt/notu ve kabul kriterleri guncel olmalidir.
-- Kritik is kurali client'a degil backend'e guvenmelidir.
-- Tip hatasi, lint hatasi ve bariz runtime hata kalmamalidir.
-- Degisiklik kisa notla dokumante edilmeli veya commit mesajinda aciklanmalidir.
-- Kullanici akisini etkileyen degisiklikte en az bir manuel test yapilmalidir.
+- `[watch]` Ilgili ekran, function veya migration calisir durumda olmalidir.
+- `[watch]` Hata ve bos durumlar en az temel seviyede ele alinmalidir.
+- `[watch]` Feature sahibi, o feature'in UI + logic + Supabase ihtiyaclarini birlikte tamamlamalidir.
+- `[watch]` Feature prompt/notu ve kabul kriterleri guncel olmalidir.
+- `[watch]` Kritik is kurali client'a degil backend'e guvenmelidir.
+- `[watch]` Tip hatasi, lint hatasi ve bariz runtime hata kalmamalidir.
+- `[watch]` Degisiklik kisa notla dokumante edilmeli veya commit mesajinda aciklanmalidir.
+- `[watch]` Kullanici akisini etkileyen degisiklikte en az bir manuel test yapilmalidir.
 
 ## 22. Kabul Kriterleri
 
 MVP tamam sayilmasi icin:
 
-- Kullanici hesap olusturup profilini tamamlayabilmeli.
-- Aktif kullanici kesfet ekraninda uygun profilleri gorebilmeli.
-- Kullanici profil begenip gecebilmelidir.
-- Karsilikli begenide match olusmalidir.
-- Match olusunca iki kullanici da `locked` duruma gecmelidir.
-- Kilitli kullanici kesfet ekraninda profil gormemelidir.
-- Kilitli kullanici baskalarinin kesfet havuzunda gorunmemelidir.
-- Aktif match katilimcilari mesajlasabilmelidir.
-- Kullanici sohbeti manuel bitirince iki taraf da havuza donmelidir.
-- Belirlenen sessizlik suresi dolunca match otomatik kapanmalidir.
-- Race condition testlerinde user basina birden fazla aktif match olusmamalidir.
-- Engelleme ve sikayet temel akislari calismalidir.
-- RLS politikalarinda kullanici yetkisiz mesaj/profil verisi okuyamamalidir.
+- `[todo]` Kullanici hesap olusturup profilini tamamlayabilmeli.
+- `[todo]` Aktif kullanici kesfet ekraninda uygun profilleri gorebilmeli.
+- `[todo]` Kullanici profil begenip gecebilmelidir.
+- `[todo]` Karsilikli begenide match olusmalidir.
+- `[todo]` Match olusunca iki kullanici da `locked` duruma gecmelidir.
+- `[todo]` Kilitli kullanici kesfet ekraninda profil gormemelidir.
+- `[todo]` Kilitli kullanici baskalarinin kesfet havuzunda gorunmemelidir.
+- `[todo]` Aktif match katilimcilari mesajlasabilmelidir.
+- `[todo]` Kullanici sohbeti manuel bitirince iki taraf da havuza donmelidir.
+- `[todo]` Belirlenen sessizlik suresi dolunca match otomatik kapanmalidir.
+- `[todo]` Race condition testlerinde user basina birden fazla aktif match olusmamalidir.
+- `[todo]` Engelleme ve sikayet temel akislari calismalidir.
+- `[todo]` RLS politikalarinda kullanici yetkisiz mesaj/profil verisi okuyamamalidir.
 
 ## 23. Karar Bekleyen Teknolojiler ve Sorular
 
 Asagidaki konular icin ek teknoloji secimi yapmadan once karar verilmelidir:
 
-1. Navigasyon: Expo Router mi, React Navigation mi tercih edilecek?
-2. Global state: Zustand, TanStack Query, Redux Toolkit veya baska bir yapi mi kullanilacak?
-3. Server state/cache: TanStack Query kullanilsin mi?
-4. Form ve validasyon: React Hook Form + Zod uygun mu?
-5. UI component sistemi: Baslangic karari custom design system; NativeWind/Tamagui/React Native Paper yalnizca Pair onayli pilot sonrasi degerlendirilecek.
-6. Styling: Baslangic karari React Native `StyleSheet` + typed theme tokenlari; styling kutuphanesi ekleme ihtiyaci UI kalite ve gelistirme hizi uzerinden tekrar olculecek.
-7. Push notification: Expo Notifications yeterli mi, dogrudan FCM/APNs mi istenecek?
-8. Analitik: Supabase events/logs yeterli mi, PostHog/Amplitude/Firebase Analytics gibi bir urun mu kullanilacak?
-9. Crash reporting: Sentry veya Firebase Crashlytics kullanilsin mi?
-10. E2E test: Detox, Maestro veya baska bir arac mi kullanilacak?
-11. Medya moderasyonu: Manuel moderator sureci mi, otomatik API tabanli moderasyon mu?
-12. Fotograf isleme: Supabase image transformation, Edge Function veya harici servis mi?
-13. Konum/mesafe: Supabase PostGIS kullanilsin mi, yoksa basit lat/lng mesafe hesaplamasi MVP icin yeterli mi?
-14. Admin panel: Supabase Studio ile mi baslanacak, sonradan custom admin panel mi yapilacak?
-15. Odeme/abonelik: MVP disi mi kalacak, yoksa erken mimariye dahil edilecek mi?
+1. `[done]` Navigasyon: Expo Router mi, React Navigation mi tercih edilecek? Karar: Expo Router.
+2. `[done]` Global state: Zustand, TanStack Query, Redux Toolkit veya baska bir yapi mi kullanilacak? Karar: TanStack Query + Zustand.
+3. `[done]` Server state/cache: TanStack Query kullanilsin mi? Karar: Evet.
+4. `[done]` Form ve validasyon: React Hook Form + Zod uygun mu? Karar: Evet.
+5. `[done]` UI component sistemi: Baslangic karari custom design system; NativeWind/Tamagui/React Native Paper yalnizca Pair onayli pilot sonrasi degerlendirilecek.
+6. `[done]` Styling: Baslangic karari React Native `StyleSheet` + typed theme tokenlari; styling kutuphanesi ekleme ihtiyaci UI kalite ve gelistirme hizi uzerinden tekrar olculecek.
+7. `[done]` Push notification: Expo Notifications yeterli mi, dogrudan FCM/APNs mi istenecek? Karar: MVP icin Expo Notifications.
+8. `[done]` Analitik: Supabase events/logs yeterli mi, PostHog/Amplitude/Firebase Analytics gibi bir urun mu kullanilacak? Karar: PostHog, development'ta no-op.
+9. `[deferred]` Crash reporting: Sentry veya Firebase Crashlytics kullanilsin mi? Karar: Sentry, beta/release asamasinda aktiflestirilecek.
+10. `[deferred]` E2E test: Detox, Maestro veya baska bir arac mi kullanilacak? Karar: Maestro, beta/CI asamasinda kurulacak.
+11. `[deferred]` Medya moderasyonu: Manuel moderator sureci mi, otomatik API tabanli moderasyon mu? Karar: MVP'de manuel surec, otomatik API beta sonrasi.
+12. `[todo]` Fotograf isleme: Supabase image transformation, Edge Function veya harici servis mi?
+13. `[done]` Konum/mesafe: Supabase PostGIS kullanilsin mi, yoksa basit lat/lng mesafe hesaplamasi MVP icin yeterli mi? Karar: MVP icin lat/lng, PostGIS sonraya.
+14. `[deferred]` Admin panel: Supabase Studio ile mi baslanacak, sonradan custom admin panel mi yapilacak? Karar: MVP'de Supabase Studio/manual surec, custom panel sonraya.
+15. `[deferred]` Odeme/abonelik: MVP disi mi kalacak, yoksa erken mimariye dahil edilecek mi? Karar: MVP disi.
 
 ## 24. Teknik Riskler
 
-- Tek aktif match kuralinin sadece client tarafinda uygulanmasi ciddi veri tutarsizligi yaratir.
-- Supabase RLS hatalari gizli mesaj/profil verilerinin sizmasina neden olabilir.
-- Realtime abonelikleri dogru kapatilmazsa pil ve performans sorunu yaratabilir.
-- Timeout job gecikir veya ayni anda birden fazla calisirsa match durumlari tutarsizlasabilir.
-- Konum verisi gereksiz hassas saklanirsa gizlilik riski dogar.
-- Moderasyon eksikligi kullanici guveni ve app store review sureclerini riske atabilir.
+- `[watch]` Tek aktif match kuralinin sadece client tarafinda uygulanmasi ciddi veri tutarsizligi yaratir.
+- `[watch]` Supabase RLS hatalari gizli mesaj/profil verilerinin sizmasina neden olabilir.
+- `[watch]` Realtime abonelikleri dogru kapatilmazsa pil ve performans sorunu yaratabilir.
+- `[watch]` Timeout job gecikir veya ayni anda birden fazla calisirsa match durumlari tutarsizlasabilir.
+- `[watch]` Konum verisi gereksiz hassas saklanirsa gizlilik riski dogar.
+- `[watch]` Moderasyon eksikligi kullanici guveni ve app store review sureclerini riske atabilir.
 
 ## 25. Teknik Sonuc
 
@@ -1089,10 +1097,10 @@ Bu uygulamanin teknik kalbi, React Native Expo arayuzunden cok Supabase tarafind
 
 Ilk implementasyon sirasinda oncelik su sirada olmalidir:
 
-1. Veri modeli ve RLS.
-2. Match olusturma/bitirme transactionlari.
-3. Mobil auth/onboarding/profil akisi.
-4. Kesfet feed ve like/pass.
-5. Kilitli mod ve chat.
-6. Timeout job ve bildirimler.
-7. Moderasyon ve kalite katmani.
+1. `[active]` Veri modeli ve RLS.
+2. `[todo]` Match olusturma/bitirme transactionlari.
+3. `[todo]` Mobil auth/onboarding/profil akisi.
+4. `[todo]` Kesfet feed ve like/pass.
+5. `[todo]` Kilitli mod ve chat.
+6. `[todo]` Timeout job ve bildirimler.
+7. `[todo]` Moderasyon ve kalite katmani.

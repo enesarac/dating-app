@@ -57,7 +57,10 @@
     "format:check": "prettier --check .",
     "test": "jest --passWithNoTests",
     "test:watch": "jest --watch --passWithNoTests",
-    "supabase:types": "supabase gen types typescript --local > types/database.ts",
+    "supabase:types": "npm run supabase:types:local",
+    "supabase:types:local": "supabase gen types typescript --local > types/database.ts",
+    "supabase:types:remote": "supabase gen types typescript --project-id abszbaekbgsfcltyqxev > types/database.ts",
+    "supabase:db:reset": "supabase db reset",
     "supabase:start": "supabase start",
     "supabase:stop": "supabase stop"
   },

@@ -20,7 +20,13 @@
       "Bash(supabase --version)",
       "Bash(supabase init *)",
       "Bash(npm uninstall *)",
-      "Bash(npx expo-doctor *)"
+      "Bash(npx expo-doctor *)",
+      "Bash(supabase status *)",
+      "Bash(open -a Docker)",
+      "Bash(supabase migration *)",
+      "Bash(docker info *)",
+      "mcp__plugin_supabase_supabase__apply_migration",
+      "mcp__plugin_supabase_supabase__generate_typescript_types"
     ]
   }
 }

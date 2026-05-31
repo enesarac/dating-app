@@ -25,14 +25,16 @@ npm run android      # Android emülatör
 npm run web          # Web tarayıcı
 ```
 
-## Supabase Local
+## Supabase
 
 ```bash
-npm run supabase:start   # Local Postgres + Auth + Studio başlat
-npm run supabase:stop    # Durdur
+npm run supabase:start        # Local Postgres + Auth + Studio başlat
+npm run supabase:stop         # Durdur
+npm run supabase:db:reset     # Local DB'yi sıfırla ve tüm migration'ları yeniden uygula
 
-# Migration oluşturduktan sonra TypeScript tiplerini yenile
-npm run supabase:types
+# Migration sonrası TypeScript tiplerini yenile
+npm run supabase:types        # Local schema'dan üret (varsayılan)
+npm run supabase:types:remote # Remote schema'dan üret (local Docker yoksa)
 ```
 
 Local Studio: `http://localhost:54323`
@@ -67,4 +69,5 @@ docs/             decisions/ · supabase-workflow · vibe-coding-rules
 
 - [`docs/decisions/0001-tech-stack.md`](docs/decisions/0001-tech-stack.md)
 - [`docs/decisions/0002-ui-system.md`](docs/decisions/0002-ui-system.md)
+- [`docs/decisions/0003-database-model-and-security.md`](docs/decisions/0003-database-model-and-security.md)
 - [`docs/vibe-coding-rules.md`](docs/vibe-coding-rules.md)
